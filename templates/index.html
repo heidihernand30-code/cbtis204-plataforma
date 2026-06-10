@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBTis 204 - Plataforma Educativa Moderna</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hero { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 60px 0; }
+        .card-carrera { border-left: 5px solid #1e3c72; transition: 0.3s; }
+        .card-carrera:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+    </style>
+</head>
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">CBTis 204</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#avisos">Avisos Recientes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#oferta">Oferta Educativa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <header id="inicio" class="hero text-center">
+        <div class="container">
+            <h1 class="display-4 fw-bold">Bienvenido al CBTis 204</h1>
+            <p class="lead">Formando estudiantes con excelencia académica, tecnológica y de ofimática.</p>
+            <span class="badge bg-warning text-dark p-2">Versión 2026 - Conectada por IA</span>
+        </div>
+    </header>
+    <div class="container my-5">
+        <div class="row">
+            <div id="avisos" class="col-md-4 mb-4">
+                <h3 class="fw-bold mb-3 text-primary">📢 Avisos y Convocatorias</h3>
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Inscripciones Abiertas 2026</h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-end" style="font-size: 0.85em;">10 de Junio, 2026</h6>
+                        <p class="card-text text-secondary" style="font-size: 0.95em;">Proceso de entrega de fichas para alumnos de nuevo ingreso disponible en las ventanillas del plantel.</p>
+                    </div>
+                </div>
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title fw-bold">Convocatoria Becas Benito Juárez</h5>
+                        <h6 class="card-subtitle mb-2 text-muted text-end" style="font-size: 0.85em;">08 de Junio, 2026</h6>
+                        <p class="card-text text-secondary" style="font-size: 0.95em;">Revisar la documentación requerida para la actualización del padrón de beneficiarios.</p>
+                    </div>
+                </div>
+            </div>
+            <div id="oferta" class="col-md-8 mb-4">
+                <h3 class="fw-bold mb-3 text-primary">🎓 Carreras Técnicas Profesionales</h3>
+                <div class="card card-carrera mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="fw-bold text-dark">Técnico en Programación</h5>
+                        <p class="mb-2"><strong>Descripción:</strong> Aprende a desarrollar software, aplicaciones móviles y páginas web con tecnologías de vanguardia.</p>
+                        <p class="text-muted mb-0" style="font-size: 0.9em;"><strong>Campo Laboral:</strong> Empresas de desarrollo tecnológico, soporte técnico o emprendimiento propio.</p>
+                    </div>
+                </div>
+                <div class="card card-carrera mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="fw-bold text-dark">Técnico en Contabilidad</h5>
+                        <p class="mb-2"><strong>Descripción:</strong> Gestiona operaciones financieras, auditorías y declaraciones fiscales de empresas públicas y privadas.</p>
+                        <p class="text-muted mb-0" style="font-size: 0.9em;"><strong>Campo Laboral:</strong> Despachos contables, bancos y departamentos administrativos.</p>
+                    </div>
+                </div>
+                <div class="card card-carrera mb-3 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="fw-bold text-dark">Técnico en Administración</h5>
+                        <p class="mb-2"><strong>Descripción:</strong> Optimiza los recursos humanos, materiales y financieros de cualquier organización moderna.</p>
+                        <p class="text-muted mb-0" style="font-size: 0.9em;"><strong>Campo Laboral:</strong> Áreas de recursos humanos, mercadotecnia y logística corporativa.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr class="my-5">
+        <div id="contacto" class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card p-4 shadow">
+                    <h3 class="fw-bold text-center mb-4">📩 Ventanilla Virtual de Contacto</h3>
+                    <p class="text-muted text-center" style="font-size: 0.9em;">Cualquier duda enviada aquí notificará al instante mediante el Bot de Telegram.</p>
+                    <form action="/contacto" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label">Nombre Completo</label>
+                            <input type="text" name="nombre" class="form-control" required placeholder="Ej. Juan Pérez">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Correo Electrónico</label>
+                            <input type="email" name="correo" class="form-control" required placeholder="juan@gmail.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mensaje o Duda</label>
+                            <textarea name="mensaje" class="form-control" rows="4" required placeholder="Escribe tu duda sobre las inscripciones..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar Mensaje e Interconectar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="bg-dark text-white text-center py-3 mt-5">
+        <p class="mb-0">CBTis 204 © 2026 | Km 39, Carr. Maravatío - Tlalpujahua, Michoacán.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
