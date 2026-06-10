@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: cbtis204-dinamico
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app
