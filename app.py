@@ -5,6 +5,7 @@ import requests
 app = Flask(__name__)
 app.secret_key = 'cbtis204_secret_key'
 
+# Conexión con las variables de entorno del Bot de Telegram
 TELEGRAM_TOKEN = os.environ.get('TELEGRAM_TOKEN', '')
 TELEGRAM_CHAT_ID = os.environ.get('TELEGRAM_CHAT_ID', '')
 
@@ -17,21 +18,21 @@ def enviar_notificacion_telegram(mensaje):
         except Exception as e:
             print(f"Error al enviar a Telegram: {e}")
 
-# Base de datos dinámica en memoria (Ahora incluye espacio para imágenes)
+# Base de datos temporal en memoria (Soporta títulos, textos y enlaces de imágenes)
 avisos_db = [
     {
         "id": 1, 
         "titulo": "Inscripciones Abiertas 2026", 
         "fecha": "10 de Junio, 2026", 
         "contenido": "Proceso de entrega de fichas para alumnos de nuevo ingreso disponible en las ventanillas del plantel.",
-        "imagen": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=400" # Imagen de respaldo
+        "imagen": "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=600"
     },
     {
         "id": 2, 
         "titulo": "Convocatoria Becas Benito Juárez", 
         "fecha": "08 de Junio, 2026", 
-        "contenido": "Revisar la documentación requerida para la actualización del padrón de beneficiarios.",
-        "imagen": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=400" # Imagen de respaldo
+        "contenido": "Revisar la documentación requerida para la actualización del padrón de beneficiarios del gobierno federal.",
+        "imagen": "https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600"
     }
 ]
 
@@ -43,10 +44,10 @@ carreras_db = [
 
 @app.route('/')
 def inicio():
-    enviar_notificacion_telegram("👁️ Alguien acaba de visitar la página interactiva del CBTis 204.")
+    enviar_notificacion_telegram("👁️ ¡Alguien acaba de visitar la plataforma interactiva del CBTis 204!")
     return render_template('index.html', avisos=avisos_db, carreras=carreras_db)
 
-# NUEVA RUTA: Para procesar los avisos que tú subas desde la página
+# RUTA PARA PUBLICAR NUEVOS AVISOS DESDE LA WEB
 @app.route('/subir-aviso', methods=['POST'])
 def subir_aviso():
     titulo = request.form.get('titulo')
@@ -54,9 +55,9 @@ def subir_aviso():
     contenido = request.form.get('contenido')
     imagen = request.form.get('imagen')
 
-    # Si no pusiste imagen, le asignamos una por defecto de la escuela
+    # Si no pones foto, el sistema asigna una por defecto
     if not imagen:
-        imagen = "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=400"
+        imagen = "https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=600"
 
     nuevo_aviso = {
         "id": len(avisos_db) + 1,
@@ -66,13 +67,14 @@ def subir_aviso():
         "imagen": imagen
     }
     
-    # Insertar al inicio para que aparezca primero
+    # Se inserta en la posición 0 para que aparezca inmediatamente arriba
     avisos_db.insert(0, nuevo_aviso)
     
-    enviar_notificacion_telegram(f"📢 ¡Se ha publicado un nuevo aviso dinámico!\nTítulo: {titulo}")
+    enviar_notificacion_telegram(f"📢 ¡Nuevo aviso publicado en la cartelera!\nTítulo: {titulo}\nFecha: {fecha}")
     flash("¡Excelente! El aviso ha sido publicado e integrado con éxito en la cartelera.", "success")
     return redirect(url_for('inicio'))
 
+# RUTA PARA LA VENTANILLA DE CONTACTO
 @app.route('/contacto', methods=['POST'])
 def contacto():
     nombre = request.form.get('nombre')
@@ -82,7 +84,7 @@ def contacto():
     alerta = f"📩 ¡Nuevo Mensaje en la Web del CBTis 204!\n\n👤 Nombre: {nombre}\n📧 Correo: {correo}\n💬 Mensaje: {mensaje}"
     enviar_notificacion_telegram(alerta)
     
-    flash("¡Tu mensaje ha sido enviado con éxito! El bot ha notificado al administrador.", "success")
+    flash("¡Tu mensaje ha sido enviado con éxito! El bot ha notificado a la dirección del plantel.", "success")
     return redirect(url_for('inicio'))
 
 if __name__ == '__main__':
