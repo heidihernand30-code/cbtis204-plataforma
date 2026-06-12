@@ -6,12 +6,16 @@
     <title>CBTis 204 - Plataforma Educativa Moderna</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .hero { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 60px 0; }
-        .card-carrera { border-left: 5px solid #1e3c72; transition: 0.3s; }
-        .card-carrera:hover { transform: translateY(-5px); box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .hero { background: linear-gradient(135deg, #1a365d 0%, #2a5298 100%); color: white; padding: 50px 0; }
+        .card-carrera { border-left: 5px solid #1a365d; transition: 0.3s; }
+        .card-carrera:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .img-aviso { height: 200px; object-fit: cover; width: 100%; }
+        .card-aviso { border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card-aviso:hover { transform: scale(1.01); }
     </style>
 </head>
 <body class="bg-light">
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <div class="container">
             <a class="navbar-brand fw-bold" href="#">CBTis 204</a>
@@ -21,92 +25,123 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#avisos">Avisos Recientes</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#avisos">Avisos y Fotos</a></li>
                     <li class="nav-item"><a class="nav-link" href="#oferta">Oferta Educativa</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#admin">Publicar Aviso</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
             </div>
         </div>
     </nav>
+
     <header id="inicio" class="hero text-center">
         <div class="container">
             <h1 class="display-4 fw-bold">Bienvenido al CBTis 204</h1>
             <p class="lead">Formando estudiantes con excelencia académica, tecnológica y de ofimática.</p>
-            <span class="badge bg-warning text-dark p-2">Versión 2026 - Conectada por IA</span>
+            <span class="badge bg-warning text-dark px-3 py-2 fw-bold">Versión 2.0 - Cartelera Dinámica Activa</span>
         </div>
     </header>
+
     <div class="container my-5">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }} alert-dismissible fade show text-center fw-bold shadow-sm" role="alert">
+                ✨ {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+
         <div class="row">
-            <div id="avisos" class="col-md-4 mb-4">
-                <h3 class="fw-bold mb-3 text-primary">📢 Avisos y Convocatorias</h3>
-                <div class="card mb-3 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Inscripciones Abiertas 2026</h5>
-                        <h6 class="card-subtitle mb-2 text-muted text-end" style="font-size: 0.85em;">10 de Junio, 2026</h6>
-                        <p class="card-text text-secondary" style="font-size: 0.95em;">Proceso de entrega de fichas para alumnos de nuevo ingreso disponible en las ventanillas del plantel.</p>
+            <div id="avisos" class="col-md-6 mb-4">
+                <h3 class="fw-bold mb-4 text-primary">📢 Cartelera Virtual Informativa</h3>
+                <div class="overflow-auto pe-2" style="max-height: 750px;">
+                    {% for aviso in avisos %}
+                    <div class="card card-aviso mb-4 rounded-3 overflow-hidden">
+                        <img src="{{ aviso.imagen }}" class="img-aviso" alt="Foto del aviso">
+                        <div class="card-body">
+                            <span class="badge bg-primary mb-2">{{ aviso.fecha }}</span>
+                            <h5 class="card-title fw-bold text-dark">{{ aviso.titulo }}</h5>
+                            <p class="card-text text-secondary" style="font-size: 0.95em;">{{ aviso.contenido }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="card mb-3 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold">Convocatoria Becas Benito Juárez</h5>
-                        <h6 class="card-subtitle mb-2 text-muted text-end" style="font-size: 0.85em;">08 de Junio, 2026</h6>
-                        <p class="card-text text-secondary" style="font-size: 0.95em;">Revisar la documentación requerida para la actualización del padrón de beneficiarios.</p>
-                    </div>
+                    {% endfor %}
                 </div>
             </div>
-            <div id="oferta" class="col-md-8 mb-4">
-                <h3 class="fw-bold mb-3 text-primary">🎓 Carreras Técnicas Profesionales</h3>
-                <div class="card card-carrera mb-3 shadow-sm">
+
+            <div id="oferta" class="col-md-6 mb-4">
+                <h3 class="fw-bold mb-4 text-primary">🎓 Carreras Técnicas Profesionales</h3>
+                {% for carrera in carreras %}
+                <div class="card card-carrera mb-3 shadow-sm bg-white">
                     <div class="card-body">
-                        <h5 class="fw-bold text-dark">Técnico en Programación</h5>
-                        <p class="mb-2"><strong>Descripción:</strong> Aprende a desarrollar software, aplicaciones móviles y páginas web con tecnologías de vanguardia.</p>
-                        <p class="text-muted mb-0" style="font-size: 0.9em;"><strong>Campo Laboral:</strong> Empresas de desarrollo tecnológico, soporte técnico o emprendimiento propio.</p>
+                        <h5 class="fw-bold text-dark">{{ carrera.nombre }}</h5>
+                        <p class="mb-2" style="font-size: 0.95em;"><strong>Descripción:</strong> {{ carrera.descripcion }}</p>
+                        <p class="text-muted mb-0" style="font-size: 0.88em;"><strong>Campo Laboral:</strong> {{ carrera.campo }}</p>
                     </div>
                 </div>
-                <div class="card card-carrera mb-3 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="fw-bold text-dark">Técnico en Contabilidad</h5>
-                        <p class="mb-2"><strong>Descripción:</strong> Gestiona operaciones financieras, auditorías y declaraciones fiscales de empresas públicas y privadas.</p>
-                        <p class="text-muted mb-0" style="font-size: 0.9em;"><strong>Campo Laboral:</strong> Despachos contables, bancos y departamentos administrativos.</p>
-                    </div>
-                </div>
-                <div class="card card-carrera mb-3 shadow-sm">
-                    <div class="card-body">
-                        <h5 class="fw-bold text-dark">Técnico en Administración</h5>
-                        <p class="mb-2"><strong>Descripción:</strong> Optimiza los recursos humanos, materiales y financieros de cualquier organización moderna.</p>
-                        <p class="text-muted mb-0" style="font-size: 0.9em;"><strong>Campo Laboral:</strong> Áreas de recursos humanos, mercadotecnia y logística corporativa.</p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
+
         <hr class="my-5">
-        <div id="contacto" class="row justify-content-center">
-            <div class="col-md-6">
-                <div class="card p-4 shadow">
-                    <h3 class="fw-bold text-center mb-4">📩 Ventanilla Virtual de Contacto</h3>
-                    <p class="text-muted text-center" style="font-size: 0.9em;">Cualquier duda enviada aquí notificará al instante mediante el Bot de Telegram.</p>
+
+        <div class="row mt-4">
+            <div id="admin" class="col-md-6 mb-4">
+                <div class="card p-4 shadow-sm border-0 bg-white">
+                    <h4 class="fw-bold text-success mb-3 text-center">⚙️ Publicar Nuevo Aviso (Área de Dirección)</h4>
+                    <p class="text-muted text-center small">Tip: Puedes subir cualquier foto gratis a <a href="https://imgbb.com/" target="_blank" class="fw-bold">imgbb.com</a> y pegar aquí su link directo.</p>
+                    <form action="/subir-aviso" method="POST">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Título del Anuncio</label>
+                            <input type="text" name="titulo" class="form-control" required placeholder="Ej: Entrega de Boletas del Segundo Parcial">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Fecha para mostrar</label>
+                            <input type="text" name="fecha" class="form-control" required placeholder="Ej: 15 de Junio, 2026">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Enlace/URL de la Foto</label>
+                            <input type="url" name="imagen" class="form-control" placeholder="https://i.ibb.co/ejemplo/foto.jpg">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Información Completa del Aviso</label>
+                            <textarea name="contenido" class="form-control" rows="3" required placeholder="Escribe aquí los horarios, salones o requisitos..."></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success w-100 fw-bold">✨ Publicar de Inmediato en la Web</button>
+                    </form>
+                </div>
+            </div>
+
+            <div id="contacto" class="col-md-6 mb-4">
+                <div class="card p-4 shadow-sm border-0 bg-white">
+                    <h4 class="fw-bold text-primary mb-3 text-center">📩 Ventanilla Virtual de Contacto</h4>
+                    <p class="text-muted text-center small">Cualquier formulario llenado aquí enviará un mensaje instantáneo a tu celular vía Telegram.</p>
                     <form action="/contacto" method="POST">
                         <div class="mb-3">
-                            <label class="form-label">Nombre Completo</label>
-                            <input type="text" name="nombre" class="form-control" required placeholder="Ej. Juan Pérez">
+                            <label class="form-label fw-bold">Nombre del Interesado</label>
+                            <input type="text" name="nombre" class="form-control" required placeholder="Ej: Sofía Martínez">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Correo Electrónico</label>
-                            <input type="email" name="correo" class="form-control" required placeholder="juan@gmail.com">
+                            <label class="form-label fw-bold">Correo Electrónico de Contacto</label>
+                            <input type="email" name="correo" class="form-control" required placeholder="sofia@gmail.com">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label">Mensaje o Duda</label>
-                            <textarea name="mensaje" class="form-control" rows="4" required placeholder="Escribe tu duda sobre las inscripciones..."></textarea>
+                            <label class="form-label fw-bold">Mensaje o Pregunta</label>
+                            <textarea name="mensaje" class="form-control" rows="3" required placeholder="¿Tienen cupo para la carrera de Programación?..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar Mensaje e Interconectar</button>
+                        <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar Mensaje Oficial</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
     <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p class="mb-0">CBTis 204 © 2026 | Km 39, Carr. Maravatío - Tlalpujahua, Michoacán.</p>
+        <p class="mb-0" style="font-size: 0.9em;">CBTis 204 © 2026 | Km 39, Carr. Maravatío - Tlalpujahua, Michoacán, México.</p>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
