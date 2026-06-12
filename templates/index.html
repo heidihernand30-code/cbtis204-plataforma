@@ -3,42 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBTis 204 - Plataforma Educativa Moderna</title>
+    <title>CBTis 204 - Plataforma Institucional DGETI</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        .hero { background: linear-gradient(135deg, #1a365d 0%, #2a5298 100%); color: white; padding: 50px 0; }
-        .card-carrera { border-left: 5px solid #1a365d; transition: 0.3s; }
-        .card-carrera:hover { transform: translateY(-3px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .img-aviso { height: 200px; object-fit: cover; width: 100%; }
-        .card-aviso { border: none; box-shadow: 0 4px 10px rgba(0,0,0,0.05); transition: 0.3s; }
-        .card-aviso:hover { transform: scale(1.01); }
+        /* PALETA DE COLORES OFICIAL DGETI */
+        :root {
+            --dgeti-guinda: #6A1B29; /* Guinda Institucional */
+            --dgeti-dorado: #BC955C; /* Dorado de Excelencia */
+            --dgeti-dorado-oscuro: #987441;
+            --dgeti-gris-claro: #F4F6F7;
+        }
+
+        body {
+            background-color: var(--dgeti-gris-claro);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navbar elegante en Guinda y Dorado */
+        .navbar-dgeti {
+            background-color: var(--dgeti-guinda) !important;
+            border-bottom: 4px solid var(--dgeti-dorado);
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+        .nav-link:hover {
+            color: var(--dgeti-dorado) !important;
+        }
+
+        /* Hero Header Impactante */
+        .hero-dgeti {
+            background: linear-gradient(135deg, #4A101A 0%, var(--dgeti-guinda) 100%);
+            color: white;
+            padding: 80px 0;
+            border-bottom: 5px solid var(--dgeti-dorado);
+            position: relative;
+        }
+        .hero-dgeti::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background-color: var(--dgeti-dorado);
+        }
+
+        /* Tarjetas de Avisos y Carreras Estilo Premium */
+        .card-premium {
+            border: none;
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+        .card-premium:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(106, 27, 41, 0.15);
+        }
+
+        .card-carrera {
+            border-left: 6px solid var(--dgeti-guinda);
+        }
+        .card-carrera:hover {
+            border-left: 6px solid var(--dgeti-dorado);
+        }
+
+        .img-aviso {
+            height: 220px;
+            object-fit: cover;
+            width: 100%;
+            border-bottom: 3px solid var(--dgeti-dorado);
+        }
+
+        /* Botones Personalizados */
+        .btn-guinda {
+            background-color: var(--dgeti-guinda);
+            color: white;
+            font-weight: bold;
+            border: 1px solid var(--dgeti-guinda);
+            transition: 0.3s;
+        }
+        .btn-guinda:hover {
+            background-color: #4A101A;
+            color: white;
+            border-color: #4A101A;
+        }
+
+        .btn-dorado {
+            background-color: var(--dgeti-dorado);
+            color: white;
+            font-weight: bold;
+            border: 1px solid var(--dgeti-dorado);
+        }
+        .btn-dorado:hover {
+            background-color: var(--dgeti-dorado-oscuro);
+            color: white;
+        }
+
+        .text-guinda { color: var(--dgeti-guinda) !important; }
+        .text-dorado { color: var(--dgeti-dorado) !important; }
+        
+        .badge-dorado {
+            background-color: var(--dgeti-dorado);
+            color: white;
+            font-weight: bold;
+        }
+        .badge-guinda {
+            background-color: var(--dgeti-guinda);
+            color: white;
+            font-weight: bold;
+        }
+
+        footer {
+            background-color: #2c3e50;
+            color: white;
+            border-top: 5px solid var(--dgeti-dorado);
+        }
     </style>
 </head>
-<body class="bg-light">
+<body>
 
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+    <nav class="navbar navbar-expand-lg navbar-dgeti sticky-top shadow">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">CBTis 204</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <a class="navbar-brand d-flex align-items-center fs-4" href="#">
+                <span class="text-white fw-bold">CBTis</span>&nbsp;<span style="color: var(--dgeti-dorado);">204</span>
+            </a>
+            <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#avisos">Avisos y Fotos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#avisos">Cartelera</a></li>
                     <li class="nav-item"><a class="nav-link" href="#oferta">Oferta Educativa</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#admin">Publicar Aviso</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#admin">Panel Admin</a></li>
                     <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header id="inicio" class="hero text-center">
+    <header id="inicio" class="hero-dgeti text-center">
         <div class="container">
-            <h1 class="display-4 fw-bold">Bienvenido al CBTis 204</h1>
-            <p class="lead">Formando estudiantes con excelencia académica, tecnológica y de ofimática.</p>
-            <span class="badge bg-warning text-dark px-3 py-2 fw-bold">Versión 2.0 - Cartelera Dinámica Activa</span>
+            <span class="badge bg-white text-guinda px-3 py-2 mb-3 fw-bold shadow-sm" style="font-size: 0.9em;">SISTEMA DGETI MICHOACÁN</span>
+            <h1 class="display-3 fw-bold mb-2" style="letter-spacing: -1px;">Centro de Bachillerato Tecnológico <br>industrial y de servicios No. 204</h1>
+            <p class="lead fs-4 text-white-50">Formando ciudadanos con excelencia académica, tecnológica y valores institucionales.</p>
+            <div class="mt-4">
+                <span class="badge badge-dorado px-4 py-2 fs-6 shadow-sm">Plataforma Dinámica Oficial V2.0</span>
+            </div>
         </div>
     </header>
 
@@ -46,100 +161,113 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
           {% if messages %}
             {% for category, message in messages %}
-              <div class="alert alert-{{ category }} alert-dismissible fade show text-center fw-bold shadow-sm" role="alert">
-                ✨ {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              <div class="alert alert-success alert-dismissible fade show text-center fw-bold shadow border-0" role="alert" style="border-left: 5px solid #27ae60 !important;">
+                🎉 {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
               </div>
             {% endfor %}
           {% endif %}
         {% endwith %}
 
-        <div class="row">
-            <div id="avisos" class="col-md-6 mb-4">
-                <h3 class="fw-bold mb-4 text-primary">📢 Cartelera Virtual Informativa</h3>
-                <div class="overflow-auto pe-2" style="max-height: 750px;">
+        <div class="row g-4">
+            <div id="avisos" class="col-lg-6">
+                <h3 class="fw-bold mb-4 text-guinda d-flex align-items-center">
+                    <span class="me-2">📢</span> Cartelera y Comunicados Oficiales
+                </h3>
+                <div class="overflow-auto pe-2" style="max-height: 800px; scrollbar-width: thin;">
                     {% for aviso in avisos %}
-                    <div class="card card-aviso mb-4 rounded-3 overflow-hidden">
-                        <img src="{{ aviso.imagen }}" class="img-aviso" alt="Foto del aviso">
-                        <div class="card-body">
-                            <span class="badge bg-primary mb-2">{{ aviso.fecha }}</span>
-                            <h5 class="card-title fw-bold text-dark">{{ aviso.titulo }}</h5>
-                            <p class="card-text text-secondary" style="font-size: 0.95em;">{{ aviso.contenido }}</p>
+                    <div class="card card-premium mb-4">
+                        <img src="{{ aviso.imagen }}" class="img-aviso" alt="Imagen del comunicado">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge badge-guinda px-3 py-1.5 rounded-pill">{{ aviso.fecha }}</span>
+                            </div>
+                            <h4 class="card-title fw-bold text-dark mb-2">{{ aviso.titulo }}</h4>
+                            <p class="card-text text-secondary lh-base" style="font-size: 0.98em;">{{ aviso.contenido }}</p>
                         </div>
                     </div>
                     {% endfor %}
                 </div>
             </div>
 
-            <div id="oferta" class="col-md-6 mb-4">
-                <h3 class="fw-bold mb-4 text-primary">🎓 Carreras Técnicas Profesionales</h3>
-                {% for carrera in carreras %}
-                <div class="card card-carrera mb-3 shadow-sm bg-white">
-                    <div class="card-body">
-                        <h5 class="fw-bold text-dark">{{ carrera.nombre }}</h5>
-                        <p class="mb-2" style="font-size: 0.95em;"><strong>Descripción:</strong> {{ carrera.descripcion }}</p>
-                        <p class="text-muted mb-0" style="font-size: 0.88em;"><strong>Campo Laboral:</strong> {{ carrera.campo }}</p>
+            <div id="oferta" class="col-lg-6">
+                <h3 class="fw-bold mb-4 text-guinda d-flex align-items-center">
+                    <span class="me-2">🎓</span> Oferta Educativa Profesional
+                </h3>
+                <div class="row g-3">
+                    {% for carrera in carreras %}
+                    <div class="col-12">
+                        <div class="card card-premium card-carrera p-4">
+                            <h4 class="fw-bold text-guinda mb-2">{{ carrera.nombre }}</h4>
+                            <p class="mb-3 text-dark" style="font-size: 0.95em;"><strong>Perfil de Egreso:</strong> {{ carrera.descripcion }}</p>
+                            <div class="p-3 bg-light rounded-3" style="border-left: 3px solid var(--dgeti-dorado);">
+                                <p class="text-secondary mb-0 small"><strong>💼 Oportunidades de Empleo:</strong> {{ carrera.campo }}</p>
+                            </div>
+                        </div>
                     </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
 
-        <hr class="my-5">
+        <hr class="my-5" style="border-top: 3px dashed var(--dgeti-dorado); opacity: 0.5;">
 
-        <div class="row mt-4">
-            <div id="admin" class="col-md-6 mb-4">
-                <div class="card p-4 shadow-sm border-0 bg-white">
-                    <h4 class="fw-bold text-success mb-3 text-center">⚙️ Publicar Nuevo Aviso (Área de Dirección)</h4>
-                    <p class="text-muted text-center small">Tip: Puedes subir cualquier foto gratis a <a href="https://imgbb.com/" target="_blank" class="fw-bold">imgbb.com</a> y pegar aquí su link directo.</p>
+        <div class="row g-4">
+            <div id="admin" class="col-md-6">
+                <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid #27ae60;">
+                    <h4 class="fw-bold text-success mb-3 text-center">⚙️ Control Editorial de Cartelera</h4>
+                    <p class="text-muted text-center small mb-4">Usa la plataforma para subir avisos al instante. Puedes alojar tus fotos gratis en <a href="https://imgbb.com/" target="_blank" class="fw-bold text-success">imgbb.com</a> y pegar la URL directa.</p>
                     <form action="/subir-aviso" method="POST">
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Título del Anuncio</label>
-                            <input type="text" name="titulo" class="form-control" required placeholder="Ej: Entrega de Boletas del Segundo Parcial">
+                            <label class="form-label fw-bold small text-secondary">Título Institucional del Aviso</label>
+                            <input type="text" name="titulo" class="form-control form-control-lg fs-6" required placeholder="Ej: Calendario de Exámenes Extraordinarios">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Fecha para mostrar</label>
-                            <input type="text" name="fecha" class="form-control" required placeholder="Ej: 15 de Junio, 2026">
+                            <label class="form-label fw-bold small text-secondary">Fecha del Evento</label>
+                            <input type="text" name="fecha" class="form-control" required placeholder="Ej: 12 de Junio, 2026">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Enlace/URL de la Foto</label>
+                            <label class="form-label fw-bold small text-secondary">Enlace de la Imagen (URL Directa)</label>
                             <input type="url" name="imagen" class="form-control" placeholder="https://i.ibb.co/ejemplo/foto.jpg">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Información Completa del Aviso</label>
-                            <textarea name="contenido" class="form-control" rows="3" required placeholder="Escribe aquí los horarios, salones o requisitos..."></textarea>
+                            <label class="form-label fw-bold small text-secondary">Cuerpo del Comunicado</label>
+                            <textarea name="contenido" class="form-control" rows="4" required placeholder="Escribe todas las especificaciones detalladas para los alumnos..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-success w-100 fw-bold">✨ Publicar de Inmediato en la Web</button>
+                        <button type="submit" class="btn btn-success btn-lg w-100 fw-bold shadow-sm">✨ Publicar Aviso con Imagen</button>
                     </form>
                 </div>
             </div>
 
-            <div id="contacto" class="col-md-6 mb-4">
-                <div class="card p-4 shadow-sm border-0 bg-white">
-                    <h4 class="fw-bold text-primary mb-3 text-center">📩 Ventanilla Virtual de Contacto</h4>
-                    <p class="text-muted text-center small">Cualquier formulario llenado aquí enviará un mensaje instantáneo a tu celular vía Telegram.</p>
+            <div id="contacto" class="col-md-6">
+                <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid var(--dgeti-guinda);">
+                    <h4 class="fw-bold text-guinda mb-3 text-center">📩 Ventanilla de Correspondencia Virtual</h4>
+                    <p class="text-muted text-center small mb-4">Los datos ingresados se procesarán mediante el servidor e interconectarán alertas directas a Telegram.</p>
                     <form action="/contacto" method="POST">
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Nombre del Interesado</label>
-                            <input type="text" name="nombre" class="form-control" required placeholder="Ej: Sofía Martínez">
+                            <label class="form-label fw-bold small text-secondary">Nombre Completo del Remitente</label>
+                            <input type="text" name="nombre" class="form-control" required placeholder="Ej: Lic. María Elena Torres">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Correo Electrónico de Contacto</label>
-                            <input type="email" name="correo" class="form-control" required placeholder="sofia@gmail.com">
+                            <label class="form-label fw-bold small text-secondary">Dirección de Correo Electrónico</label>
+                            <input type="email" name="correo" class="form-control" required placeholder="ejemplo@correo.com">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold">Mensaje o Pregunta</label>
-                            <textarea name="mensaje" class="form-control" rows="3" required placeholder="¿Tienen cupo para la carrera de Programación?..."></textarea>
+                            <label class="form-label fw-bold small text-secondary">Asunto / Exposición de Motivos</label>
+                            <textarea name="mensaje" class="form-control" rows="4" required placeholder="Escribe tu consulta formal dirigida a las autoridades del plantel..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary w-100 fw-bold">Enviar Mensaje Oficial</button>
+                        <button type="submit" class="btn btn-guinda btn-lg w-100 fw-bold shadow-sm">Enviar Mensaje Oficial</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 
-    <footer class="bg-dark text-white text-center py-3 mt-5">
-        <p class="mb-0" style="font-size: 0.9em;">CBTis 204 © 2026 | Km 39, Carr. Maravatío - Tlalpujahua, Michoacán, México.</p>
+    <footer class="text-white text-center py-4 mt-5">
+        <div class="container">
+            <p class="fw-bold mb-1" style="color: var(--dgeti-dorado);">CBTis No. 204 — Dirección de Educación Tecnológica Industrial</p>
+            <p class="mb-0 text-white-50 small">Km 39, Carretera Maravatío - Tlalpujahua, Michoacán, México.</p>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
