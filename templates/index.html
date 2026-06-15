@@ -3,428 +3,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBTis 204 - Portal Monumental Institucional</title>
+    <title>CBTis 204 - Portal Institucional DGETI</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
         :root {
             --dgeti-guinda: #6A1B29;
-            --dgeti-guinda-dark: #4A101A;
             --dgeti-dorado: #BC955C;
-            --dgeti-dorado-light: #D4AF37;
-            --bg-blanco: #FFFFFF;
-            --bg-gris: #F8F9FA;
+            --dgeti-dorado-oscuro: #987441;
+            --dgeti-gris: #F4F6F7;
         }
 
         body {
-            background-color: var(--bg-blanco);
-            font-family: 'Open Sans', sans-serif;
-            color: #333;
-            scroll-behavior: smooth;
+            background-color: var(--dgeti-gris);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
-        h1, h2, h3, h4, .font-mon {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
+        /* Navbar Institucional */
+        .navbar-dgeti {
+            background-color: var(--dgeti-guinda) !important;
+            border-bottom: 4px solid var(--dgeti-dorado);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .navbar-brand, .nav-link {
+            color: #ffffff !important;
+            font-weight: 600;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--dgeti-dorado) !important;
+            border-bottom: 2px solid var(--dgeti-dorado);
         }
 
-        /* Navbar de Alta Gama */
-        .navbar-custom {
-            background-color: var(--bg-blanco) !important;
-            border-bottom: 4px solid var(--dgeti-guinda);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        }
-        .navbar-custom .nav-link {
-            color: #333333 !important;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.75rem;
-            letter-spacing: 0.5px;
-            padding: 12px 10px !important;
-            transition: all 0.3s;
-        }
-        .navbar-custom .nav-link:hover {
-            color: var(--dgeti-guinda) !important;
-            background-color: rgba(106, 27, 41, 0.05);
-            border-radius: 6px;
+        /* Contenedor Principal Ajustable */
+        .main-content {
+            flex: 1;
         }
 
-        /* Hero Banner Cinematográfico */
-        .hero-section {
-            background: linear-gradient(135deg, rgba(74, 16, 26, 0.95) 0%, rgba(106, 27, 41, 0.9) 100%), 
-                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1920') no-repeat center center/cover;
-            color: white;
-            padding: 120px 0;
-            border-bottom: 6px solid var(--dgeti-dorado);
+        /* Secciones ocultas por defecto para obligar a la exploración */
+        .seccion-web {
+            display: none;
+        }
+        /* La sección activa se muestra limpia */
+        .seccion-web.activa {
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
         }
 
-        /* Secciones Estructuradas alternadas */
-        .seccion-blanca { background-color: var(--bg-blanco); padding: 80px 0; }
-        .seccion-grena { background-color: var(--bg-gris); padding: 80px 0; }
-
-        .titulo-seccion {
-            position: relative;
-            padding-bottom: 15px;
-            margin-bottom: 45px;
-            font-weight: 800;
-            color: var(--dgeti-guinda);
-            text-transform: uppercase;
-            letter-spacing: -0.5px;
-        }
-        .titulo-seccion::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 4px;
-            background-color: var(--dgeti-dorado);
-            border-radius: 2px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Tarjetas de Diseño Avanzado */
-        .card-grandiosa {
+        /* Tarjetas Estilo Premium DGETI */
+        .card-premium {
             border: none;
-            border-radius: 16px;
-            background: #ffffff;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            border-radius: 12px;
+            background-color: #ffffff;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
             overflow: hidden;
-            transition: all 0.4s ease;
+            border-bottom: 3px solid var(--dgeti-guinda);
         }
-        .card-grandiosa:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 35px rgba(106, 27, 41, 0.12);
+        .card-carrera {
+            border-left: 6px solid var(--dgeti-guinda);
+            border-bottom: none;
+            transition: 0.3s;
+        }
+        .card-carrera:hover {
+            border-left: 6px solid var(--dgeti-dorado);
+            transform: translateX(5px);
         }
 
-        .img-card-grandiosa {
+        .img-aviso {
             height: 240px;
             object-fit: cover;
             width: 100%;
+            border-bottom: 3px solid var(--dgeti-dorado);
         }
 
-        /* Iconos Dorados y Guindas */
-        .icon-circle {
-            width: 65px;
-            height: 65px;
-            background-color: var(--dgeti-guinda);
-            color: var(--dgeti-dorado);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.6rem;
-            margin: 0 auto 20px auto;
-            border: 3px solid var(--dgeti-dorado);
-            box-shadow: 0 4px 15px rgba(106, 27, 41, 0.2);
-        }
-
-        /* Botones Especiales */
-        .btn-action-guinda {
+        .btn-guinda {
             background-color: var(--dgeti-guinda);
             color: white;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            padding: 14px 30px;
-            border-radius: 10px;
-            border: none;
-            box-shadow: 0 5px 15px rgba(106, 27, 41, 0.2);
-            transition: all 0.3s;
+            font-weight: bold;
         }
-        .btn-action-guinda:hover {
-            background-color: var(--dgeti-guinda-dark);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        .btn-action-dorado {
-            background-color: var(--dgeti-dorado);
-            color: white;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-            padding: 14px 30px;
-            border-radius: 10px;
-            border: none;
-            transition: all 0.3s;
-        }
-        .btn-action-dorado:hover {
-            background-color: var(--dgeti-guinda);
+        .btn-guinda:hover {
+            background-color: #4A101A;
             color: white;
         }
 
         footer {
-            background-color: #111;
-            color: #aaa;
-            padding: 50px 0;
-            border-top: 6px solid var(--dgeti-dorado);
+            background-color: #1A1A1A;
+            color: white;
+            border-top: 4px solid var(--dgeti-dorado);
         }
     </style>
 </head>
 <body>
 
-    <nav class="navbar navbar-expand-xl navbar-custom sticky-top py-3">
-        <div class="container-fluid px-4">
-            <a class="navbar-brand d-flex align-items-center" href="#">
-                <span class="text-dark fw-bold font-mon fs-3">CBTIS <span style="color: var(--dgeti-guinda);">204</span></span>
+    <nav class="navbar navbar-expand-lg navbar-dgeti sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold fs-4" href="#" onclick="navegar('inicio')">
+                CBTis <span style="color: var(--dgeti-dorado);">204</span>
             </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
-                <i class="fa-solid fa-bars text-dark"></i>
+            <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="mainNav">
-                <ul class="navbar-nav ms-auto gap-1">
-                    <li class="nav-item"><a class="nav-link" href="#inicio">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#nosotros">Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#actividades">Actividades</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#inscripciones">Inscripciones / Ficha</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#horarios">Horarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#avisos">Avisos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#beneficios">Beneficios del 204</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#comentarios">Comentarios</a></li>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" id="btn-inicio" href="#" onclick="navegar('inicio')">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-avisos" href="#" onclick="navegar('avisos')">Cartelera de Avisos</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-oferta" href="#" onclick="navegar('oferta')">Oferta Educativa</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-contacto" href="#" onclick="navegar('contacto')">Contacto y Dudas</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-admin" href="#" onclick="navegar('admin')">📋 Panel Admin</a></li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <header id="inicio" class="hero-section text-center">
-        <div class="container">
-            <span class="badge bg-white text-guinda px-4 py-2 rounded-pill fw-bold mb-3 shadow">PORTAL INSTITUCIONAL DE EXCELENCIA</span>
-            <h1 class="display-3 fw-bold mb-3 text-white font-mon">Centro de Bachillerato Tecnológico <br>industrial y de servicios No. 204</h1>
-            <p class="lead text-white-50 mb-4 fs-4 max-width-md mx-auto">Bienvenido al nuevo entorno digital estructurado. Diseñado bajo los lineamientos de excelencia y alta producción visual.</p>
-            <a href="#nosotros" class="btn btn-action-dorado btn-lg px-5">Explorar Plataforma</a>
-        </div>
-    </header>
+    <div class="main-content container my-5">
+        
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-success alert-dismissible fade show text-center fw-bold shadow-sm border-0 mb-4" role="alert">
+                ✨ {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
 
-    <section id="nosotros" class="seccion-blanca text-center">
-        <div class="container">
-            <h2 class="titulo-seccion">Nosotros</h2>
-            <div class="row g-4 align-items-center text-start mt-2">
-                <div class="col-lg-6">
-                    <h3 class="text-guinda mb-3">Identidad Institucional y Valores</h3>
-                    <p class="text-secondary fs-5 lh-base">Aquí irá redactada la historia, misión, visión y los objetivos educativos del CBTis 204. Esta sección proyecta el prestigio y el compromiso académico que define a nuestro plantel dentro del sistema DGETI.</p>
-                </div>
-                <div class="col-lg-6">
-                    <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=600" class="img-fluid rounded-4 shadow" alt="Nosotros Relleno">
+        <section id="sec-inicio" class="seccion-web activa text-center py-5">
+            <div class="p-5 bg-white rounded-4 shadow-sm border-top border-5" style="border-top-color: var(--dgeti-guinda) !important;">
+                <span class="badge bg-light text-dark px-3 py-2 mb-3 border fw-bold" style="color: var(--dgeti-guinda) !important;">DGETI MICHOACÁN</span>
+                <h1 class="display-4 fw-bold text-dark mb-3">Centro de Bachillerato Tecnológico<br>industrial y de servicios No. 204</h1>
+                <p class="lead text-secondary fs-5 mb-4">Bienvenido al portal oficial de nuestra institución. Usa el menú superior para explorar los comunicados del plantel, conocer nuestras carreras técnicas o enviar correspondencia virtual.</p>
+                <div class="d-flex justify-content-center gap-3">
+                    <button class="btn btn-guinda btn-lg px-4" onclick="navegar('avisos')">👁️ Explorar Cartelera</button>
+                    <button class="btn btn-outline-secondary btn-lg px-4" onclick="navegar('oferta')">🎓 Ver Carreras</button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="actividades" class="seccion-grena text-center">
-        <div class="container">
-            <h2 class="titulo-seccion">Actividades de la Escuela</h2>
-            <div class="row g-4 mt-2">
-                <div class="col-md-4">
-                    <div class="card card-grandiosa">
-                        <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?q=80&w=600" class="img-card-grandiosa" alt="Actividad 1">
-                        <div class="card-body p-4 text-start">
-                            <h4 class="text-dark">Actividades Cívicas y Culturales</h4>
-                            <p class="text-secondary small m-0">Texto de relleno para describir los desfiles, eventos cívicos, talleres de danza o concursos internos del plantel.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-grandiosa">
-                        <img src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?q=80&w=600" class="img-card-grandiosa" alt="Actividad 2">
-                        <div class="card-body p-4 text-start">
-                            <h4 class="text-dark">Torneos y Deportes</h4>
-                            <p class="text-secondary small m-0">Texto de relleno para documentar las actividades de fútbol, básquetbol, atletismo y eventos deportivos interregionales.</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card card-grandiosa">
-                        <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=600" class="img-card-grandiosa" alt="Actividad 3">
-                        <div class="card-body p-4 text-start">
-                            <h4 class="text-dark">Proyectos Tecnológicos</h4>
-                            <p class="text-secondary small m-0">Texto de relleno para exponer las ferias de ciencias, prototipos de programación y exposiciones técnicas de las carreras.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="inscripciones" class="seccion-blanca text-center">
-        <div class="container">
-            <h2 class="titulo-seccion">Inscripciones o Ficha para Inscripciones</h2>
-            <div class="card p-5 max-width-md mx-auto shadow rounded-4 text-start" style="border-top: 6px solid var(--dgeti-guinda);">
-                <div class="row g-4 align-items-center">
-                    <div class="col-md-8">
-                        <h3 class="text-guinda">Proceso de Nuevo Ingreso 2026</h3>
-                        <p class="text-secondary m-0">Aquí se colocarán los requisitos, fechas de entrega de fichas, costos de recuperación y pasos detallados para que los aspirantes de secundaria se registren correctamente en el CBTis 204.</p>
-                    </div>
-                    <div class="col-md-4 text-md-end">
-                        <button class="btn btn-action-guinda w-100">Obtener Ficha</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="horarios" class="seccion-grena text-center">
-        <div class="container">
-            <h2 class="titulo-seccion">Horarios</h2>
-            <div class="row g-4 mt-2 justify-content-center">
-                <div class="col-md-5">
-                    <div class="card p-4 card-grandiosa text-start">
-                        <div class="icon-circle"><i class="fa-solid fa-sun"></i></div>
-                        <h4 class="text-center text-dark">Turno Matutino</h4>
-                        <p class="text-secondary text-center small">Texto provisional para la consulta y descarga de los archivos PDF con la distribución de grupos y horas del turno de la mañana.</p>
-                    </div>
-                </div>
-                <div class="col-md-5">
-                    <div class="card p-4 card-grandiosa text-start">
-                        <div class="icon-circle"><i class="fa-solid fa-moon"></i></div>
-                        <h4 class="text-center text-dark">Turno Vespertino</h4>
-                        <p class="text-secondary text-center small">Texto provisional para la consulta y descarga de los archivos PDF con la distribución de grupos y horas del turno de la tarde.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="avisos" class="seccion-blanca text-center">
-        <div class="container">
-            <h2 class="titulo-seccion">Avisos</h2>
-            {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                {% for message in messages %}
-                  <div class="alert alert-success alert-dismissible fade show text-center border-0 shadow fw-bold p-3 mb-4 rounded-3">
-                     {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                  </div>
-                {% endfor %}
-              {% endif %}
-            {% endwith %}
-
-            <div class="row g-4 mt-2 justify-content-center">
+        <section id="sec-avisos" class="seccion-web">
+            <h2 class="fw-bold text-guinda mb-4 text-center">📢 Cartelera y Comunicados Oficiales</h2>
+            <p class="text-muted text-center mb-5">Consulta las últimas actualizaciones, convocatorias de becas e indicaciones de la dirección.</p>
+            <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
                 {% for aviso in avisos %}
-                <div class="col-md-4 text-start">
-                    <div class="card card-grandiosa h-100">
-                        <img src="{{ aviso.imagen }}" class="img-card-grandiosa" alt="Aviso">
+                <div class="col" style="max-width: 500px;">
+                    <div class="card card-premium h-100">
+                        <img src="{{ aviso.imagen }}" class="img-aviso" alt="Foto del comunicado">
                         <div class="card-body p-4">
-                            <span class="badge bg-secondary mb-2" style="background-color: var(--dgeti-dorado) !important;">{{ aviso.fecha }}</span>
-                            <h4 class="text-dark fs-5 fw-bold">{{ aviso.titulo }}</h4>
-                            <p class="text-secondary small m-0 lh-base">{{ aviso.contenido }}</p>
+                            <span class="badge bg-dark text-dorado mb-3 px-3 py-1.5 rounded-pill" style="background-color: var(--dgeti-guinda);">{{ aviso.fecha }}</span>
+                            <h4 class="card-title fw-bold text-dark mb-2">{{ aviso.titulo }}</h4>
+                            <p class="card-text text-secondary">{{ aviso.contenido }}</p>
                         </div>
                     </div>
                 </div>
                 {% endfor %}
             </div>
+        </section>
 
-            <div class="card p-4 shadow border-0 max-width-md mx-auto mt-5 text-start bg-white" style="border-bottom: 5px solid #27ae60; border-radius: 20px;">
-                <h4 class="fw-bold text-success mb-3"><i class="fa-solid fa-plus-square me-2"></i> Publicar Nuevo Aviso en Vivo</h4>
-                <form action="/subir-aviso" method="POST">
-                    <div class="row g-3 mb-3">
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold">Título del Anuncio</label>
-                            <input type="text" name="titulo" class="form-control form-control-custom" required placeholder="Ej: Entrega de Boletas">
+        <section id="sec-oferta" class="seccion-web">
+            <h2 class="fw-bold text-guinda mb-4 text-center">🎓 Carreras Técnicas Profesionales</h2>
+            <p class="text-muted text-center mb-5">Explora el perfil de egreso y campo laboral de las especialidades que ofrece el CBTis 204.</p>
+            <div class="row g-4 justify-content-center">
+                {% for carrera in carreras %}
+                <div class="col-md-8">
+                    <div class="card card-premium card-carrera p-4">
+                        <h3 class="fw-bold text-guinda mb-2">{{ carrera.nombre }}</h3>
+                        <p class="mb-3 text-dark"><strong>Perfil de Egreso:</strong> {{ carrera.descripcion }}</p>
+                        <div class="p-3 bg-light rounded-3" style="border-left: 3px solid var(--dgeti-dorado);">
+                            <p class="text-secondary mb-0 small"><strong>💼 Campo Laboral:</strong> {{ carrera.campo }}</p>
                         </div>
-                        <div class="col-md-6">
-                            <label class="form-label small fw-bold">Fecha Oficial</label>
-                            <input type="text" name="fecha" class="form-control form-control-custom" required placeholder="Ej: 14 de Junio, 2026">
-                        </div>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">URL de la Foto (Subida a imgbb.com)</label>
-                        <input type="url" name="imagen" class="form-control form-control-custom" placeholder="https://i.ibb.co/ejemplo/foto.jpg">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Mensaje Detallado</label>
-                        <textarea name="contenido" class="form-control form-control-custom" rows="3" required placeholder="Escribe el aviso formal aquí..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-success w-100 fw-bold rounded-3">✨ Lanzar Aviso en Cartelera</button>
-                </form>
+                </div>
+                {% endfor %}
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section id="beneficios" class="seccion-grena text-center">
-        <div class="container">
-            <h2 class="titulo-seccion">Beneficios del 204</h2>
-            <div class="row g-4 mt-2">
-                <div class="col-md-3">
-                    <div class="card p-4 card-grandiosa">
-                        <div class="icon-circle"><i class="fa-solid fa-id-card"></i></div>
-                        <h4 class="text-dark fs-5">Becas Federales</h4>
-                        <p class="text-secondary small m-0">Acceso directo al programa universal de Becas Benito Juárez para el 100% de la matrícula de estudiantes activos.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card p-4 card-grandiosa">
-                        <div class="icon-circle"><i class="fa-solid fa-flask"></i></div>
-                        <h4 class="text-dark fs-5">Laboratorios Pro</h4>
-                        <p class="text-secondary small m-0">Talleres equipados con herramientas e infraestructura de vanguardia para Ofimática y Construcción.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card p-4 card-grandiosa">
-                        <div class="icon-circle"><i class="fa-solid fa-certificate"></i></div>
-                        <h4 class="text-dark fs-5">Título y Cédula</h4>
-                        <p class="text-secondary small m-0">Al egresar obtienes tu certificado de bachillerato oficial y tu título técnico avalado directamente por la SEP.</p>
-                    </div>
-                </div>
-                <div class="col-md-3">
-                    <div class="card p-4 card-grandiosa">
-                        <div class="icon-circle"><i class="fa-solid fa-handshake"></i></div>
-                        <h4 class="text-dark fs-5">Convenios Prácticas</h4>
-                        <p class="text-secondary small m-0">Vinculación estratégica con empresas regionales en Michoacán para liberar servicio social y prácticas.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="comentarios" class="seccion-blanca text-center">
-        <div class="container">
-            <h2 class="titulo-seccion">Comentarios</h2>
-            <div class="card p-4 shadow border-0 max-width-md mx-auto text-start bg-white" style="border-bottom: 5px solid var(--dgeti-guinda); border-radius: 20px;">
-                <h4 class="fw-bold text-guinda mb-3"><i class="fa-solid fa-comments me-2"></i> Ventanilla de Buzón Escolar Interconectado</h4>
-                <p class="text-muted small">Cualquier sugerencia, duda o comentario enviado aquí llegará en tiempo real a la dirección mediante el Bot de Telegram.</p>
-                <form action="/contacto" method="POST">
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Nombre Completo</label>
-                        <input type="text" name="nombre" class="form-control form-control-custom" required placeholder="Escribe tu nombre completo...">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Correo de Contacto</label>
-                        <input type="email" name="correo" class="form-control form-control-custom" required placeholder="ejemplo@correo.com">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label small fw-bold">Comentario o Mensaje</label>
-                        <textarea name="mensaje" class="form-control form-control-custom" rows="3" required placeholder="Escribe tu mensaje formal..."></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-action-guinda w-100 rounded-3">Enviar Comentario Formal</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <footer class="text-start">
-        <div class="container">
-            <div class="row g-4 mb-4">
+        <section id="sec-contacto" class="seccion-web">
+            <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <h4 class="text-white fw-bold mb-3 font-mon">CBTis No. 204</h4>
-                    <p class="text-white-50 small lh-base">Institución educativa federal del sistema DGETI en el estado de Michoacán. Comprometidos con el desarrollo integral del bachiller.</p>
-                </div>
-                <div class="col-md-6 text-md-end">
-                    <h5 class="fw-bold mb-2 font-mon" style="color: var(--dgeti-dorado);">Ubicación Oficial</h5>
-                    <p class="text-white-50 small m-0">Km 39, Carretera Maravatío - Tlalpujahua,<br>Michoacán, México.</p>
+                    <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid var(--dgeti-guinda);">
+                        <h3 class="fw-bold text-guinda text-center mb-3">📩 Ventanilla de Correspondencia Virtual</h3>
+                        <p class="text-muted text-center small mb-4">Envía tus dudas formales. El sistema notificará de inmediato a las autoridades vía Telegram.</p>
+                        <form action="/contacto" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-secondary">Nombre Completo</label>
+                                <input type="text" name="nombre" class="form-control" required placeholder="Ej: Lic. María Elena Torres">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-secondary">Correo Electrónico</label>
+                                <input type="email" name="correo" class="form-control" required placeholder="ejemplo@correo.com">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-secondary">Mensaje o Consulta</label>
+                                <textarea name="mensaje" class="form-control" rows="4" required placeholder="Escribe tu duda dirigida al plantel..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-guinda btn-lg w-100 fw-bold shadow-sm">Enviar Mensaje Oficial</button>
+                        </form>
+                    </div>
                 </div>
             </div>
-            <hr style="border-top: 1px solid rgba(255,255,255,0.1);">
-            <div class="text-center text-white-50 small pt-2">
-                CBTis 204 © 2026 | Sistema de Estructura de Alta Gama Autorizada.
+        </section>
+
+        <section id="sec-admin" class="seccion-web">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid #27ae60;">
+                        <h3 class="fw-bold text-success text-center mb-3">⚙️ Publicar Nuevo Anuncio con Foto</h3>
+                        <p class="text-muted text-center small mb-4">Sube una foto gratis a <a href="https://imgbb.com/" target="_blank" class="fw-bold text-success">imgbb.com</a>, copia su "enlace directo" y pégalo abajo junto con la información.</p>
+                        <form action="/subir-aviso" method="POST">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-secondary">Título del Aviso</label>
+                                <input type="text" name="titulo" class="form-control" required placeholder="Ej: Entrega de Fichas de Nuevo Ingreso">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-secondary">Fecha de Publicación</label>
+                                <input type="text" name="fecha" class="form-control" required placeholder="Ej: 14 de Junio, 2026">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-secondary">URL Directa de la Imagen (Link de ImgBB)</label>
+                                <input type="url" name="imagen" class="form-control" placeholder="https://i.ibb.co/ejemplo/foto.jpg">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small text-secondary">Información del Comunicado</label>
+                                <textarea name="contenido" class="form-control" rows="4" required placeholder="Escribe los requisitos o salones aquí..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg w-100 fw-bold shadow-sm">✨ Publicar e Integrar en la Cartelera</button>
+                        </form>
+                    </div>
+                </div>
             </div>
+        </section>
+
+    </div>
+
+    <footer class="text-white text-center py-4 mt-auto">
+        <div class="container">
+            <p class="fw-bold mb-1" style="color: var(--dgeti-dorado);">CBTis No. 204 — Dirección General de Educación Tecnológica Industrial</p>
+            <p class="mb-0 text-white-50 small">Km 39, Carretera Maravatío - Tlalpujahua, Michoacán, México.</p>
         </div>
     </footer>
 
+    <script>
+        function navegar(idSeccion) {
+            // Ocultar todas las secciones primero
+            document.querySelectorAll('.seccion-web').forEach(sec => {
+                sec.classList.remove('activa');
+            });
+            // Quitar el estado activo de los botones del menú
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+
+            // Mostrar la sección seleccionada de forma limpia
+            document.getElementById('sec-' + idSeccion).classList.add('activa');
+            // Activar el botón correspondiente en el menú
+            document.getElementById('btn-' + idSeccion).classList.add('active');
+            
+            // Cerrar el menú móvil automáticamente si está desplegado
+            const navbarCollapse = document.getElementById('navbarNav');
+            if(navbarCollapse.classList.contains('show')) {
+                new bootstrap.Collapse(navbarCollapse).hide();
+            }
+        }
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
