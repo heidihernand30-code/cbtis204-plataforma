@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBTis 204 - Portal Institucional DGETI</title>
+    <title>CBTis 204 - Plataforma Institucional Interactiva</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         :root {
@@ -21,7 +21,6 @@
             min-height: 100vh;
         }
 
-        /* Navbar Institucional */
         .navbar-dgeti {
             background-color: var(--dgeti-guinda) !important;
             border-bottom: 4px solid var(--dgeti-dorado);
@@ -36,67 +35,39 @@
             border-bottom: 2px solid var(--dgeti-dorado);
         }
 
-        /* Contenedor Principal Ajustable */
-        .main-content {
-            flex: 1;
-        }
+        .main-content { flex: 1; }
 
-        /* Secciones ocultas por defecto para obligar a la exploración */
-        .seccion-web {
-            display: none;
-        }
-        /* La sección activa se muestra limpia */
-        .seccion-web.activa {
-            display: block;
-            animation: fadeIn 0.5s ease-in-out;
-        }
+        .seccion-web { display: none; }
+        .seccion-web.activa { display: block; animation: fadeIn 0.4s ease-in-out; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Tarjetas Estilo Premium DGETI */
         .card-premium {
             border: none;
             border-radius: 12px;
             background-color: #ffffff;
             box-shadow: 0 6px 15px rgba(0,0,0,0.05);
             overflow: hidden;
-            border-bottom: 3px solid var(--dgeti-guinda);
-        }
-        .card-carrera {
-            border-left: 6px solid var(--dgeti-guinda);
-            border-bottom: none;
+            border-bottom: 4px solid var(--dgeti-guinda);
             transition: 0.3s;
         }
-        .card-carrera:hover {
-            border-left: 6px solid var(--dgeti-dorado);
-            transform: translateX(5px);
-        }
+        .card-premium:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(106,27,41,0.1); }
+        
+        .card-carrera { border-left: 6px solid var(--dgeti-guinda); border-bottom: none; }
+        .card-carrera:hover { border-left: 6px solid var(--dgeti-dorado); }
 
-        .img-aviso {
-            height: 240px;
-            object-fit: cover;
-            width: 100%;
-            border-bottom: 3px solid var(--dgeti-dorado);
-        }
+        .img-aviso { height: 200px; object-fit: cover; width: 100%; border-bottom: 3px solid var(--dgeti-dorado); }
 
-        .btn-guinda {
-            background-color: var(--dgeti-guinda);
-            color: white;
-            font-weight: bold;
-        }
-        .btn-guinda:hover {
-            background-color: #4A101A;
-            color: white;
-        }
+        .btn-guinda { background-color: var(--dgeti-guinda); color: white; font-weight: bold; }
+        .btn-guinda:hover { background-color: #4A101A; color: white; }
+        
+        .btn-outline-guinda { border: 2px solid var(--dgeti-guinda); color: var(--dgeti-guinda); font-weight: 600; }
+        .btn-outline-guinda:hover, .btn-outline-guinda.active { background-color: var(--dgeti-guinda); color: white; }
 
-        footer {
-            background-color: #1A1A1A;
-            color: white;
-            border-top: 4px solid var(--dgeti-dorado);
-        }
+        footer { background-color: #1A1A1A; color: white; border-top: 4px solid var(--dgeti-dorado); }
     </style>
 </head>
 <body>
@@ -111,11 +82,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" id="btn-inicio" href="#" onclick="navegar('inicio')">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-avisos" href="#" onclick="navegar('avisos')">Cartelera de Avisos</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="btn-inicio" href="#" onclick="navegar('inicio')">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-nosotros" href="#" onclick="navegar('nosotros')">Nosotros</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-avisos" href="#" onclick="navegar('avisos')">Cartelera Digital</a></li>
                     <li class="nav-item"><a class="nav-link" id="btn-oferta" href="#" onclick="navegar('oferta')">Oferta Educativa</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-contacto" href="#" onclick="navegar('contacto')">Contacto y Dudas</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-admin" href="#" onclick="navegar('admin')">📋 Panel Admin</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-simulador" href="#" onclick="navegar('simulador')">Simulador Escolar</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-contacto" href="#" onclick="navegar('contacto')">Contacto</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-admin" href="#" onclick="navegar('admin')">⚙️ Panel Admin</a></li>
                 </ul>
             </div>
         </div>
@@ -123,41 +96,65 @@
 
     <div class="main-content container my-5">
         
-        {% with messages = get_flashed_messages() %}
-          {% if messages %}
-            {% for message in messages %}
-              <div class="alert alert-success alert-dismissible fade show text-center fw-bold shadow-sm border-0 mb-4" role="alert">
-                ✨ {{ message }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-              </div>
-            {% endfor %}
-          {% endif %}
-        {% endwith %}
-
-        <section id="sec-inicio" class="seccion-web activa text-center py-5">
-            <div class="p-5 bg-white rounded-4 shadow-sm border-top border-5" style="border-top-color: var(--dgeti-guinda) !important;">
+        <section id="sec-inicio" class="seccion-web activa py-4">
+            <div class="p-5 bg-white rounded-4 shadow-sm text-center border-top border-5" style="border-top-color: var(--dgeti-guinda) !important;">
                 <span class="badge bg-light text-dark px-3 py-2 mb-3 border fw-bold" style="color: var(--dgeti-guinda) !important;">DGETI MICHOACÁN</span>
                 <h1 class="display-4 fw-bold text-dark mb-3">Centro de Bachillerato Tecnológico<br>industrial y de servicios No. 204</h1>
-                <p class="lead text-secondary fs-5 mb-4">Bienvenido al portal oficial de nuestra institución. Usa el menú superior para explorar los comunicados del plantel, conocer nuestras carreras técnicas o enviar correspondencia virtual.</p>
-                <div class="d-flex justify-content-center gap-3">
-                    <button class="btn btn-guinda btn-lg px-4" onclick="navegar('avisos')">👁️ Explorar Cartelera</button>
-                    <button class="btn btn-outline-secondary btn-lg px-4" onclick="navegar('oferta')">🎓 Ver Carreras</button>
+                <p class="lead text-secondary fs-5 mb-4">Bienvenido a la nueva plataforma digital interconectada. Diseñada para ofrecer un acceso dinámico a nuestra oferta educativa, trámites escolares y avisos de última hora.</p>
+                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                    <button class="btn btn-guinda btn-lg px-4 shadow-sm" onclick="navegar('avisos')">📢 Ver Cartelera Virtual</button>
+                    <button class="btn btn-outline-guinda btn-lg px-4 shadow-sm" onclick="navegar('simulador')">📊 Usar Simulador de Promedios</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="sec-nosotros" class="seccion-web">
+            <h2 class="fw-bold text-guinda mb-4 text-center">🏛️ Identidad Institucional</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center">
+                        <h4 class="fw-bold text-guinda">🎯 Misión</h4>
+                        <p class="text-secondary small">Formar profesionales técnicos bachilleres de excelencia a través de una educación tecnológica integral y pertinente, que responda a las demandas de desarrollo social y productivo del país.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center">
+                        <h4 class="fw-bold text-guinda">👁️ Visión</h4>
+                        <p class="text-secondary small">Ser una institución de educación media superior líder, reconocida nacionalmente por la calidad de sus egresados, su vanguardia tecnológica, sólidos valores cívicos y su compromiso social.</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center">
+                        <h4 class="fw-bold text-guinda">🤝 Valores</h4>
+                        <p class="text-secondary small">Fomentamos activamente la responsabilidad, la honestidad, el respeto mutuo, la solidaridad social, el pensamiento crítico y la disciplina tecnológica dentro y fuera de las aulas.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="sec-avisos" class="seccion-web">
-            <h2 class="fw-bold text-guinda mb-4 text-center">📢 Cartelera y Comunicados Oficiales</h2>
-            <p class="text-muted text-center mb-5">Consulta las últimas actualizaciones, convocatorias de becas e indicaciones de la dirección.</p>
-            <div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center">
+            <h2 class="fw-bold text-guinda mb-2 text-center">📢 Cartelera Virtual Inteligente</h2>
+            <p class="text-muted text-center mb-4">Filtra los anuncios en tiempo real haciendo clic en los botones de categoría.</p>
+            
+            <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
+                <button class="btn btn-outline-guinda active" id="f-todos" onclick="filtrarAvisos('Todos')">Mostrar Todos</button>
+                <button class="btn btn-outline-guinda" id="f-inscripciones" onclick="filtrarAvisos('Inscripciones')">🎓 Inscripciones</button>
+                <button class="btn btn-outline-guinda" id="f-becas" onclick="filtrarAvisos('Becas')">💰 Becas</button>
+                <button class="btn btn-outline-guinda" id="f-general" onclick="filtrarAvisos('General')">📌 Avisos Generales</button>
+            </div>
+
+            <div class="row row-cols-1 row-cols-md-3 g-4 justify-content-center">
                 {% for aviso in avisos %}
-                <div class="col" style="max-width: 500px;">
+                <div class="col card-aviso-item" data-categoria="{{ aviso.categoria }}" style="max-width: 400px;">
                     <div class="card card-premium h-100">
-                        <img src="{{ aviso.imagen }}" class="img-aviso" alt="Foto del comunicado">
+                        <img src="{{ aviso.imagen }}" class="img-aviso" alt="Comunicado">
                         <div class="card-body p-4">
-                            <span class="badge bg-dark text-dorado mb-3 px-3 py-1.5 rounded-pill" style="background-color: var(--dgeti-guinda);">{{ aviso.fecha }}</span>
-                            <h4 class="card-title fw-bold text-dark mb-2">{{ aviso.titulo }}</h4>
-                            <p class="card-text text-secondary">{{ aviso.contenido }}</p>
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <span class="badge bg-secondary rounded-pill small">{{ aviso.fecha }}</span>
+                                <span class="badge bg-warning text-dark font-monospace small">{{ aviso.categoria }}</span>
+                            </div>
+                            <h5 class="card-title fw-bold text-dark mb-2">{{ aviso.titulo }}</h5>
+                            <p class="card-text text-secondary small">{{ aviso.contenido }}</p>
                         </div>
                     </div>
                 </div>
@@ -166,16 +163,23 @@
         </section>
 
         <section id="sec-oferta" class="seccion-web">
-            <h2 class="fw-bold text-guinda mb-4 text-center">🎓 Carreras Técnicas Profesionales</h2>
-            <p class="text-muted text-center mb-5">Explora el perfil de egreso y campo laboral de las especialidades que ofrece el CBTis 204.</p>
-            <div class="row g-4 justify-content-center">
+            <h2 class="fw-bold text-guinda mb-2 text-center">🎓 Oferta Educativa Profesional</h2>
+            <p class="text-muted text-center mb-4">Escribe una palabra clave abajo para buscar especialidades al instante.</p>
+            
+            <div class="row justify-content-center mb-4">
+                <div class="col-md-6">
+                    <input type="text" id="buscador-carreras" class="form-control form-control-lg text-center shadow-sm" placeholder="🔍 Escribe para buscar... Ej: Programación" onkeyup="buscarCarreras()">
+                </div>
+            </div>
+
+            <div class="row g-4 justify-content-center" id="lista-carreras">
                 {% for carrera in carreras %}
-                <div class="col-md-8">
+                <div class="col-md-8 item-carrera-card">
                     <div class="card card-premium card-carrera p-4">
-                        <h3 class="fw-bold text-guinda mb-2">{{ carrera.nombre }}</h3>
-                        <p class="mb-3 text-dark"><strong>Perfil de Egreso:</strong> {{ carrera.descripcion }}</p>
-                        <div class="p-3 bg-light rounded-3" style="border-left: 3px solid var(--dgeti-dorado);">
-                            <p class="text-secondary mb-0 small"><strong>💼 Campo Laboral:</strong> {{ carrera.campo }}</p>
+                        <h4 class="fw-bold text-guinda mb-2 nombre-carrera-txt">{{ carrera.nombre }}</h4>
+                        <p class="mb-3 text-dark small"><strong>Especialidad:</strong> {{ carrera.descripcion }}</p>
+                        <div class="p-3 bg-light rounded-3">
+                            <p class="text-secondary mb-0 small"><strong>💼 Salida Laboral:</strong> {{ carrera.campo }}</p>
                         </div>
                     </div>
                 </div>
@@ -183,26 +187,55 @@
             </div>
         </section>
 
+        <section id="sec-simulador" class="seccion-web">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid var(--dgeti-dorado);">
+                        <h3 class="fw-bold text-guinda text-center mb-2">📊 Simulador de Calificaciones</h3>
+                        <p class="text-muted text-center small mb-4">Ingresa tus calificaciones de los tres parciales para calcular tu promedio final automáticamente.</p>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">Calificación Parcial 1</label>
+                            <input type="number" id="p1" class="form-control text-center form-control-lg" min="0" max="10" step="0.1" placeholder="0.0">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">Calificación Parcial 2</label>
+                            <input type="number" id="p2" class="form-control text-center form-control-lg" min="0" max="10" step="0.1" placeholder="0.0">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label fw-bold small">Calificación Parcial 3</label>
+                            <input type="number" id="p3" class="form-control text-center form-control-lg" min="0" max="10" step="0.1" placeholder="0.0">
+                        </div>
+                        <button class="btn btn-guinda btn-lg w-100 fw-bold mb-3 shadow-sm" onclick="calcularPromedio()">📊 Calcular Estado Académico</button>
+                        
+                        <div id="resultado-panel" class="p-3 rounded-3 text-center d-none">
+                            <h4 class="fw-bold mb-1" id="resultado-txt">Promedio: 0.0</h4>
+                            <p class="mb-0 fw-bold small" id="resultado-status"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <section id="sec-contacto" class="seccion-web">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid var(--dgeti-guinda);">
-                        <h3 class="fw-bold text-guinda text-center mb-3">📩 Ventanilla de Correspondencia Virtual</h3>
-                        <p class="text-muted text-center small mb-4">Envía tus dudas formales. El sistema notificará de inmediato a las autoridades vía Telegram.</p>
+                    <div class="card p-4 shadow-sm border-0 bg-white">
+                        <h3 class="fw-bold text-guinda text-center mb-3">📩 Ventanilla Virtual de Contacto</h3>
                         <form action="/contacto" method="POST">
                             <div class="mb-3">
-                                <label class="form-label fw-bold small text-secondary">Nombre Completo</label>
-                                <input type="text" name="nombre" class="form-control" required placeholder="Ej: Lic. María Elena Torres">
+                                <label class="form-label fw-bold small">Nombre Completo</label>
+                                <input type="text" name="nombre" class="form-control" required placeholder="Ej: Sofía Martínez">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small text-secondary">Correo Electrónico</label>
-                                <input type="email" name="correo" class="form-control" required placeholder="ejemplo@correo.com">
+                                <label class="form-label fw-bold small">Correo Electrónico</label>
+                                <input type="email" name="correo" class="form-control" required placeholder="sofia@gmail.com">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small text-secondary">Mensaje o Consulta</label>
-                                <textarea name="mensaje" class="form-control" rows="4" required placeholder="Escribe tu duda dirigida al plantel..."></textarea>
+                                <label class="form-label fw-bold small">Mensaje / Consulta</label>
+                                <textarea name="mensaje" class="form-control" rows="4" required placeholder="Escribe tu duda formal..."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-guinda btn-lg w-100 fw-bold shadow-sm">Enviar Mensaje Oficial</button>
+                            <button type="submit" class="btn btn-guinda btn-lg w-100 fw-bold">Enviar Correspondencia</button>
                         </form>
                     </div>
                 </div>
@@ -213,26 +246,33 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid #27ae60;">
-                        <h3 class="fw-bold text-success text-center mb-3">⚙️ Publicar Nuevo Anuncio con Foto</h3>
-                        <p class="text-muted text-center small mb-4">Sube una foto gratis a <a href="https://imgbb.com/" target="_blank" class="fw-bold text-success">imgbb.com</a>, copia su "enlace directo" y pégalo abajo junto con la información.</p>
+                        <h3 class="fw-bold text-success text-center mb-3">⚙️ Publicar Anuncio con Categoría</h3>
                         <form action="/subir-aviso" method="POST">
                             <div class="mb-3">
-                                <label class="form-label fw-bold small text-secondary">Título del Aviso</label>
-                                <input type="text" name="titulo" class="form-control" required placeholder="Ej: Entrega de Fichas de Nuevo Ingreso">
+                                <label class="form-label fw-bold small">Título del Aviso</label>
+                                <input type="text" name="titulo" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small text-secondary">Fecha de Publicación</label>
-                                <input type="text" name="fecha" class="form-control" required placeholder="Ej: 14 de Junio, 2026">
+                                <label class="form-label fw-bold small">Fecha para mostrar</label>
+                                <input type="text" name="fecha" class="form-control" required placeholder="Ej: 15 de Junio, 2026">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small text-secondary">URL Directa de la Imagen (Link de ImgBB)</label>
-                                <input type="url" name="imagen" class="form-control" placeholder="https://i.ibb.co/ejemplo/foto.jpg">
+                                <label class="form-label fw-bold small">Categoría del Anuncio</label>
+                                <select name="categoria" class="form-select">
+                                    <option value="General">📌 General</option>
+                                    <option value="Inscripciones">🎓 Inscripciones</option>
+                                    <option value="Becas">💰 Becas</option>
+                                </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small text-secondary">Información del Comunicado</label>
-                                <textarea name="contenido" class="form-control" rows="4" required placeholder="Escribe los requisitos o salones aquí..."></textarea>
+                                <label class="form-label fw-bold small">URL de la Imagen (ImgBB)</label>
+                                <input type="url" name="imagen" class="form-control">
                             </div>
-                            <button type="submit" class="btn btn-success btn-lg w-100 fw-bold shadow-sm">✨ Publicar e Integrar en la Cartelera</button>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold small">Contenido del Comunicado</label>
+                                <textarea name="contenido" class="form-control" rows="3" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-lg w-100 fw-bold">✨ Publicar en Cartelera Inteligente</button>
                         </form>
                     </div>
                 </div>
@@ -249,25 +289,59 @@
     </footer>
 
     <script>
+        // 1. Motor de navegación por pestañas
         function navegar(idSeccion) {
-            // Ocultar todas las secciones primero
-            document.querySelectorAll('.seccion-web').forEach(sec => {
-                sec.classList.remove('activa');
-            });
-            // Quitar el estado activo de los botones del menú
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.classList.remove('active');
-            });
-
-            // Mostrar la sección seleccionada de forma limpia
+            document.querySelectorAll('.seccion-web').forEach(sec => sec.classList.remove('activa'));
+            document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
             document.getElementById('sec-' + idSeccion).classList.add('activa');
-            // Activar el botón correspondiente en el menú
             document.getElementById('btn-' + idSeccion).classList.add('active');
+        }
+
+        // 2. Filtro interactivo de avisos en tiempo real
+        function filtrarAvisos(categoria) {
+            document.querySelectorAll('.nav-item .btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.card-aviso-item').forEach(item => {
+                if (categoria === 'Todos' || item.getAttribute('data-categoria') === categoria) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // 3. Buscador interactivo de carreras en tiempo real
+        function buscarCarreras() {
+            let texto = document.getElementById('buscador-carreras').value.toLowerCase();
+            document.querySelectorAll('.item-carrera-card').forEach(card => {
+                let nombre = card.querySelector('.nombre-carrera-txt').innerText.toLowerCase();
+                if (nombre.includes(texto)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // 4. Calculadora del Simulador Escolar
+        function calcularPromedio() {
+            let p1 = parseFloat(document.getElementById('p1').value) || 0;
+            let p2 = parseFloat(document.getElementById('p2').value) || 0;
+            let p3 = parseFloat(document.getElementById('p3').value) || 0;
+            let promedio = (p1 + p2 + p3) / 3;
             
-            // Cerrar el menú móvil automáticamente si está desplegado
-            const navbarCollapse = document.getElementById('navbarNav');
-            if(navbarCollapse.classList.contains('show')) {
-                new bootstrap.Collapse(navbarCollapse).hide();
+            let panel = document.getElementById('resultado-panel');
+            let txt = document.getElementById('resultado-txt');
+            let status = document.getElementById('resultado-status');
+            
+            panel.classList.remove('d-none', 'bg-success', 'bg-danger', 'text-white');
+            txt.innerText = "Promedio Final: " + promedio.toFixed(1);
+            
+            if (promedio >= 6.0) {
+                panel.classList.add('bg-success', 'text-white');
+                status.innerText = "✓ ALUMNO ACREDITADO (Situación Regular)";
+            } else {
+                panel.classList.add('bg-danger', 'text-white');
+                status.innerText = "⚠ ASIGNATURA NO ACREDITADA (Requiere Regularización)";
             }
         }
     </script>
