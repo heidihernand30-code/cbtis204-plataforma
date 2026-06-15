@@ -17,62 +17,28 @@ def enviar_notificacion_telegram(mensaje):
         except Exception as e:
             print(f"Error al enviar a Telegram: {e}")
 
-# Base de datos de avisos con imágenes académicas de alta definición incorporadas
+# Base de datos provisional estructurada
 avisos_db = [
     {
         "id": 1, 
-        "titulo": "Apertura del Registro de Nuevos Ingresos 2026", 
+        "titulo": "Inicio de Evaluaciones del Periodo Escolar", 
         "fecha": "14 de Junio, 2026", 
-        "contenido": "Se informa a todos los egresados de secundaria del estado de Michoacán que las ventanillas de Servicios Escolares han abierto la recepción física de carpetas para el examen de admisión del periodo actual.",
+        "contenido": "Se convoca a los alumnos a revisar los calendarios oficiales de exámenes colgados en la coordinación del plantel.",
         "imagen": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600"
     },
     {
         "id": 2, 
-        "titulo": "Convocatoria Oficial: Becas Benito Juárez", 
+        "titulo": "Reunión General de Padres de Familia", 
         "fecha": "10 de Junio, 2026", 
-        "contenido": "El Departamento de Vinculación convoca a los alumnos de todos los semestres a revisar las listas del padrón y entregar la documentación requerida para evitar suspensiones del apoyo.",
-        "imagen": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600"
-    }
-]
-
-# LAS 5 CARRERAS OFICIALES DEL CBTIS 204
-carreras_db = [
-    {
-        "nombre": "Técnico en Ofimática", 
-        "icono": "fa-desktop",
-        "descripcion": "Especialidad enfocada en la gestión de sistemas de información, automatización de procesos administrativos, diseño de documentos digitales y optimización de bases de datos de entornos corporativos.", 
-        "campo": "Departamentos administrativos, empresas de servicios, gestión de datos y secretarías digitales."
-    },
-    {
-        "nombre": "Técnico en Construcción", 
-        "icono": "fa-helmet-safety",
-        "descripcion": "Capacitación en interpretación de planos arquitectónicos, supervisión de obras civiles, estimación de costos y presupuestos, y control de calidad de materiales bajo normas de seguridad industrial.", 
-        "campo": "Constructoras privadas, despachos de arquitectura, obras públicas y supervisión de proyectos edilicios."
-    },
-    {
-        "nombre": "Técnico en Administración", 
-        "icono": "fa-briefcase",
-        "descripcion": "Formación estratégica orientada al desarrollo de planes de marketing corporativo, gestión eficiente del capital humano, logística de inventarios y control operativo empresarial.", 
-        "campo": "Áreas de recursos humanos, departamentos de ventas, logística comercial y control interno de empresas."
-    },
-    {
-        "nombre": "Técnico en Contabilidad", 
-        "icono": "fa-calculator",
-        "descripcion": "Especialidad en el registro sistemático de operaciones financieras, auditorías internas, cálculo de obligaciones fiscales y control presupuestario de organizaciones públicas y privadas.", 
-        "campo": "Despachos contables, instituciones bancarias, finanzas corporativas y tesorerías."
-    },
-    {
-        "nombre": "Técnico en Vida Saludable", 
-        "icono": "fa-heart-pulse",
-        "descripcion": "Área de vanguardia enfocada en la promoción del bienestar integral, desarrollo de planes de nutrición comunitaria, acondicionamiento físico adaptado y fomento de hábitos sustentables.", 
-        "campo": "Centros de salud comunitaria, instituciones deportivas, consultorías de bienestar y desarrollo social."
+        "contenido": "Aviso oficial dirigido a los tutores legales para la entrega presencial de las boletas correspondientes al avance actual.",
+        "imagen": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=600"
     }
 ]
 
 @app.route('/')
 def inicio():
-    enviar_notificacion_telegram("👁️ ¡Portal Premium DGETI del CBTis 204 cargado en la web!")
-    return render_template('index.html', avisos=avisos_db, carreras=carreras_db)
+    enviar_notificacion_telegram("👁️ ¡Portal Estructurado del CBTis 204 visitado!")
+    return render_template('index.html', avisos=avisos_db)
 
 @app.route('/subir-aviso', methods=['POST'])
 def subir_aviso():
@@ -93,8 +59,8 @@ def subir_aviso():
     }
     
     avisos_db.insert(0, nuevo_aviso)
-    enviar_notificacion_telegram(f"📢 ¡Aviso publicado!\nTítulo: {titulo}")
-    flash("El comunicado institucional ha sido integrado con éxito a la cartelera pública de la DGETI.", "success")
+    enviar_notificacion_telegram(f"📢 ¡Aviso Monumental Publicado!\nTítulo: {titulo}")
+    flash("El aviso se ha integrado al panel dinámico de la cartelera de forma exitosa.", "success")
     return redirect(url_for('inicio'))
 
 @app.route('/contacto', methods=['POST'])
@@ -103,10 +69,10 @@ def contacto():
     correo = request.form.get('correo')
     mensaje = request.form.get('mensaje')
     
-    alerta = f"📩 ¡Nueva correspondencia en el portal del CBTis 204!\n\n👤 Remitente: {nombre}\n📧 Correo: {correo}\n💬 Mensaje: {mensaje}"
+    alerta = f"📩 ¡Nuevo Comentario Escolar Recibido!\n\n👤 Remitente: {nombre}\n📧 Correo: {correo}\n💬 Comentario: {mensaje}"
     enviar_notificacion_telegram(alerta)
     
-    flash("Su correspondencia virtual ha sido procesada e interconectada con el sistema de dirección.", "success")
+    flash("Su comentario formal ha sido procesado e interconectado correctamente con la dirección.", "success")
     return redirect(url_for('inicio'))
 
 if __name__ == '__main__':
