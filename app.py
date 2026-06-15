@@ -17,39 +17,42 @@ def enviar_notificacion_telegram(mensaje):
         except Exception as e:
             print(f"Error al enviar a Telegram: {e}")
 
-# Base de datos en memoria con fotos académicas predeterminadas
+# Base de datos en memoria ahora categorizada para el filtro interactivo
 avisos_db = [
     {
         "id": 1, 
-        "titulo": "Proceso de Inscripciones Ciclo Escolar", 
-        "fecha": "14 de Junio, 2026", 
-        "contenido": "Se convoca a todos los alumnos aspirantes a completar la entrega de expedientes y recepción de fichas oficiales de admisión en las ventanillas de Servicios Escolares.",
+        "titulo": "Entrega de Fichas Oficiales 2026", 
+        "fecha": "15 de Junio, 2026", 
+        "categoria": "Inscripciones",
+        "contenido": "Se abre el registro oficial de expedientes en las ventanillas de Servicios Escolares para alumnos de nuevo ingreso.",
         "imagen": "https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=600"
     },
     {
         "id": 2, 
-        "titulo": "Actualización Padrón Becas Benito Juárez", 
+        "titulo": "Validación de Becas Benito Juárez", 
         "fecha": "08 de Junio, 2026", 
-        "contenido": "Atención becarios del plantel: Favor de acudir con la documentación oficial solicitada a las oficinas de Vinculación para validar sus datos de apoyo económico.",
+        "categoria": "Becas",
+        "contenido": "Atención becarios: Acudir con su credencial y expediente al departamento de Vinculación para asegurar la continuidad del apoyo.",
         "imagen": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?q=80&w=600"
     }
 ]
 
 carreras_db = [
-    {"nombre": "Técnico en Programación", "descripcion": "Formación integral centrada en el diseño, desarrollo, pruebas y mantenimiento de sistemas de software, aplicaciones web y móviles multiplataforma.", "campo": "Empresas globales de TI, consultorías de desarrollo, startups y departamentos de soporte técnico informático o de ofimática."},
-    {"nombre": "Técnico en Contabilidad", "descripcion": "Capacitación especializada en el registro de operaciones financieras, control de presupuestos, auditorías contables y declaraciones fiscales empresariales.", "campo": "Despachos contables, instituciones bancarias, dependencias fiscales de gobierno y áreas financieras de corporativos."},
-    {"nombre": "Técnico en Administración", "descripcion": "Desarrollo de competencias estratégicas para coordinar capital humano, optimizar recursos materiales y estructurar planes comerciales institucionales.", "campo": "Áreas de recursos humanos, logística, planeación comercial y control de operaciones en micro, medianas y grandes empresas."}
+    {"nombre": "Técnico en Programación", "descripcion": "Estudio avanzado del desarrollo de sistemas lógicos, algoritmos complejos, páginas web dinámicas e ingeniería de software institucional.", "campo": "Empresas tecnológicas globales, administración de servidores web, soporte técnico corporativo y de ofimática."},
+    {"nombre": "Técnico en Contabilidad", "descripcion": "Especialidad en auditorías, cálculo de presupuestos institucionales, balances generales financieros y declaraciones fiscales gubernamentales.", "campo": "Despachos contables, sector bancario, departamentos de finanzas públicos y privados."},
+    {"nombre": "Técnico en Administración", "descripcion": "Formación enfocada en la optimización de recursos humanos, planeación estratégica de mercadotecnia y control logístico corporativo.", "campo": "Áreas de recursos humanos, gestión comercial, logística y control administrativo de empresas públicas o privadas."}
 ]
 
 @app.route('/')
 def inicio():
-    enviar_notificacion_telegram("👁️ ¡Exploración detectada en la plataforma estructurada del CBTis 204!")
+    enviar_notificacion_telegram("👁️ ¡Exploración avanzada en el portal interactivo del CBTis 204!")
     return render_template('index.html', avisos=avisos_db, carreras=carreras_db)
 
 @app.route('/subir-aviso', methods=['POST'])
 def subir_aviso():
     titulo = request.form.get('titulo')
     fecha = request.form.get('fecha')
+    categoria = request.form.get('categoria')
     contenido = request.form.get('contenido')
     imagen = request.form.get('imagen')
 
@@ -60,13 +63,13 @@ def subir_aviso():
         "id": len(avisos_db) + 1,
         "titulo": titulo,
         "fecha": fecha,
+        "categoria": categoria,
         "contenido": contenido,
         "imagen": imagen
     }
     
     avisos_db.insert(0, nuevo_aviso)
-    enviar_notificacion_telegram(f"📢 ¡Nuevo Aviso publicado en Cartelera!\nTítulo: {titulo}")
-    flash("El aviso institucional ha sido publicado de forma exitosa en la sección de Cartelera.", "success")
+    enviar_notificacion_telegram(f"📢 ¡Se publicó un anuncio en {categoria}!\nTítulo: {titulo}")
     return redirect(url_for('inicio'))
 
 @app.route('/contacto', methods=['POST'])
@@ -75,10 +78,8 @@ def contacto():
     correo = request.form.get('correo')
     mensaje = request.form.get('mensaje')
     
-    alerta = f"📩 ¡Nueva consulta formal en ventanilla!\n\n👤 Remitente: {nombre}\n📧 Correo: {correo}\n💬 Mensaje: {mensaje}"
+    alerta = f"📩 ¡Nueva consulta escolar!\n\n👤 Remitente: {nombre}\n📧 Correo: {correo}\n💬 Mensaje: {mensaje}"
     enviar_notificacion_telegram(alerta)
-    
-    flash("Su mensaje formal ha sido turnado de forma exitosa mediante la interconexión digital.", "success")
     return redirect(url_for('inicio'))
 
 if __name__ == '__main__':
