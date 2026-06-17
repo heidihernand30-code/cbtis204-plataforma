@@ -3,92 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBTis 204 - Plataforma Institucional Interactiva</title>
+    <title>CBTis 204 - Sistema Institucional de Servicios Educativos</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
+        /* IDENTIDAD CORPORATIVA DGETI PREMIUM */
         :root {
             --dgeti-guinda: #6A1B29;
             --dgeti-dorado: #BC955C;
             --dgeti-dorado-oscuro: #987441;
-            --dgeti-gris: #F4F6F7;
+            --dgeti-gris-fondo: #F4F6F7;
+            --dgeti-blanco: #FFFFFF;
         }
 
         body {
-            background-color: var(--dgeti-gris);
+            background-color: var(--dgeti-gris-fondo);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
         }
 
+        /* Navbar Presidencial */
         .navbar-dgeti {
             background-color: var(--dgeti-guinda) !important;
-            border-bottom: 4px solid var(--dgeti-dorado);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            border-bottom: 5px solid var(--dgeti-dorado);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            padding: 15px 0;
         }
         .navbar-brand, .nav-link {
             color: #ffffff !important;
-            font-weight: 600;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .nav-link {
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            margin: 0 8px;
+            transition: 0.3s;
         }
         .nav-link:hover, .nav-link.active {
             color: var(--dgeti-dorado) !important;
-            border-bottom: 2px solid var(--dgeti-dorado);
+            border-bottom: 3px solid var(--dgeti-dorado);
         }
 
         .main-content { flex: 1; }
 
+        /* Sistema de Transición de Secciones Ocultas */
         .seccion-web { display: none; }
-        .seccion-web.activa { display: block; animation: fadeIn 0.4s ease-in-out; }
+        .seccion-web.activa { display: block; animation: entradaSuave 0.5s ease-in-out; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes entradaSuave {
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .card-premium {
+        /* Tarjetas de Contenido Envolvente */
+        .tarjeta-premium {
             border: none;
-            border-radius: 12px;
-            background-color: #ffffff;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.05);
+            border-radius: 14px;
+            background-color: var(--dgeti-blanco);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.04);
             overflow: hidden;
             border-bottom: 4px solid var(--dgeti-guinda);
-            transition: 0.3s;
+            transition: all 0.3s ease;
         }
-        .card-premium:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(106,27,41,0.1); }
+        .tarjeta-premium:hover { 
+            transform: translateY(-4px); 
+            box-shadow: 0 12px 30px rgba(106,27,41,0.12); 
+        }
         
-        .card-carrera { border-left: 6px solid var(--dgeti-guinda); border-bottom: none; }
-        .card-carrera:hover { border-left: 6px solid var(--dgeti-dorado); }
+        .card-carrera { 
+            border-left: 6px solid var(--dgeti-guinda); 
+            border-bottom: none; 
+        }
+        .card-carrera:hover { 
+            border-left: 6px solid var(--dgeti-dorado); 
+        }
 
-        .img-aviso { height: 200px; object-fit: cover; width: 100%; border-bottom: 3px solid var(--dgeti-dorado); }
+        /* Contenedores y Ajustes de tus Imágenes */
+        .img-banner-inicio {
+            width: 100%;
+            max-height: 380px;
+            object-fit: cover;
+            border-radius: 14px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+        }
+        .img-seccion-nosotros {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+        .img-carrera-foto {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            border-top-left-radius: 8px;
+            border-top-right-radius: 8px;
+        }
+        .img-aviso { height: 220px; object-fit: cover; width: 100%; border-bottom: 4px solid var(--dgeti-dorado); }
 
-        .btn-guinda { background-color: var(--dgeti-guinda); color: white; font-weight: bold; }
-        .btn-guinda:hover { background-color: #4A101A; color: white; }
+        /* Botonera */
+        .btn-guinda-dgeti { 
+            background-color: var(--dgeti-guinda); 
+            color: white; 
+            font-weight: 700; 
+            border-radius: 8px;
+            padding: 12px 30px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            border: none;
+        }
+        .btn-guinda-dgeti:hover { background-color: #4A101A; color: white; }
         
-        .btn-outline-guinda { border: 2px solid var(--dgeti-guinda); color: var(--dgeti-guinda); font-weight: 600; }
+        .btn-outline-guinda { 
+            border: 2px solid var(--dgeti-guinda); 
+            color: var(--dgeti-guinda); 
+            font-weight: 700; 
+            border-radius: 30px;
+        }
         .btn-outline-guinda:hover, .btn-outline-guinda.active { background-color: var(--dgeti-guinda); color: white; }
 
-        footer { background-color: #1A1A1A; color: white; border-top: 4px solid var(--dgeti-dorado); }
+        footer { background-color: #1A1A1A; color: white; border-top: 5px solid var(--dgeti-dorado); }
     </style>
 </head>
 <body>
 
     <nav class="navbar navbar-expand-lg navbar-dgeti sticky-top">
         <div class="container">
-            <a class="navbar-brand fw-bold fs-4" href="#" onclick="navegar('inicio')">
+            <a class="navbar-brand fw-bold fs-3" href="#" onclick="navegacionInterna('inicio')">
                 CBTis <span style="color: var(--dgeti-dorado);">204</span>
             </a>
-            <button class="navbar-toggler border-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <button class="navbar-toggler border-white text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" id="btn-inicio" href="#" onclick="navegar('inicio')">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-nosotros" href="#" onclick="navegar('nosotros')">Nosotros</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-avisos" href="#" onclick="navegar('avisos')">Cartelera Digital</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-oferta" href="#" onclick="navegar('oferta')">Oferta Educativa</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-simulador" href="#" onclick="navegar('simulador')">Simulador Escolar</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-contacto" href="#" onclick="navegar('contacto')">Contacto</a></li>
-                    <li class="nav-item"><a class="nav-link" id="btn-admin" href="#" onclick="navegar('admin')">⚙️ Panel Admin</a></li>
+                    <li class="nav-item"><a class="nav-link active" id="btn-inicio" href="#" onclick="navegacionInterna('inicio')">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-nosotros" href="#" onclick="navegacionInterna('nosotros')">Nuestra Identidad</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-avisos" href="#" onclick="navegacionInterna('avisos')">Cartelera Digital</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-oferta" href="#" onclick="navegacionInterna('oferta')">Oferta Educativa</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-simulador" href="#" onclick="navegacionInterna('simulador')">Simulador Escolar</a></li>
+                    <li class="nav-item"><a class="nav-link" id="btn-contacto" href="#" onclick="navegacionInterna('contacto')">Ventanilla Virtual</a></li>
+                    <li class="nav-item"><a class="nav-link text-warning fw-bold" id="btn-admin" href="#" onclick="navegacionInterna('admin')">⚙ Admin</a></li>
                 </ul>
             </div>
         </div>
@@ -96,50 +153,68 @@
 
     <div class="main-content container my-5">
         
-        <section id="sec-inicio" class="seccion-web activa py-4">
-            <div class="p-5 bg-white rounded-4 shadow-sm text-center border-top border-5" style="border-top-color: var(--dgeti-guinda) !important;">
-                <span class="badge bg-light text-dark px-3 py-2 mb-3 border fw-bold" style="color: var(--dgeti-guinda) !important;">DGETI MICHOACÁN</span>
-                <h1 class="display-4 fw-bold text-dark mb-3">Centro de Bachillerato Tecnológico<br>industrial y de servicios No. 204</h1>
-                <p class="lead text-secondary fs-5 mb-4">Bienvenido a la nueva plataforma digital interconectada. Diseñada para ofrecer un acceso dinámico a nuestra oferta educativa, trámites escolares y avisos de última hora.</p>
-                <div class="d-flex justify-content-center gap-3 flex-wrap">
-                    <button class="btn btn-guinda btn-lg px-4 shadow-sm" onclick="navegar('avisos')">📢 Ver Cartelera Virtual</button>
-                    <button class="btn btn-outline-guinda btn-lg px-4 shadow-sm" onclick="navegar('simulador')">📊 Usar Simulador de Promedios</button>
+        <section id="sec-inicio" class="seccion-web activa py-2">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-7">
+                    <span class="badge bg-white text-dark px-3 py-2 mb-3 border fw-bold shadow-sm" style="color: var(--dgeti-guinda) !important; font-size: 0.85rem;">DIRECCIÓN GENERAL DE EDUCACIÓN TECNOLÓGICA INDUSTRIAL</span>
+                    <h1 class="display-4 fw-bold text-dark mb-3" style="line-height: 1.1;">Portal Oficial de Servicios Conectados e Informativos</h1>
+                    <p class="text-secondary lh-lg fs-5">Bienvenido a la infraestructura digital adaptada para el Ciclo Escolar. Este espacio dinámico ha sido diseñado bajo los lineamientos de la DGETI para optimizar los canales de comunicación, el seguimiento académico y el acceso a la oferta curricular del plantel de manera segmentada, interactiva y transparente.</p>
+                    <div class="d-flex gap-3 mt-4 flex-wrap">
+                        <button class="btn btn-guinda-dgeti shadow" onclick="navegacionInterna('avisos')">📢 Consultar Circulares</button>
+                        <button class="btn btn-outline-guinda px-4 py-2" onclick="navegacionInterna('oferta')">🎓 Ver Carreras Técnicas</button>
+                    </div>
+                </div>
+                <div class="col-lg-5 text-center">
+                    <img src="{{ url_for('static', filename='fachada_cbtis.jpg') }}" class="img-banner-inicio mb-4" alt="Fachada CBTis 204">
+                    
+                    <div class="card tarjeta-premium p-4 border-top border-4 shadow-sm text-start" style="border-top-color: var(--dgeti-dorado) !important;">
+                        <h5 class="fw-bold text-guinda mb-3">📋 Información Rápida de Operación</h5>
+                        <ul class="list-unstyled text-secondary small border-top pt-3">
+                            <li class="mb-2"><strong>🏫 Control Escolar:</strong> Lunes a Viernes — 08:30 a 14:00 hrs.</li>
+                            <li class="mb-2"><strong>💼 Oficina de Vinculación y Becas:</strong> Lunes a Viernes — 09:00 a 15:00 hrs.</li>
+                            <li class="mb-2"><strong>🕒 Acceso al Plantel:</strong> Turno Matutino y Vespertino conforme a horario de clases.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="sec-nosotros" class="seccion-web">
-            <h2 class="fw-bold text-guinda mb-4 text-center">🏛️ Identidad Institucional</h2>
+            <h2 class="fw-bold text-guinda mb-2 text-center">🏛️ Marco de Identidad y Filosofía</h2>
+            <p class="text-muted text-center mb-5 fs-5">Conoce los principios rectores que guían la educación tecnológica en nuestro plantel.</p>
             <div class="row g-4">
                 <div class="col-md-4">
-                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center">
-                        <h4 class="fw-bold text-guinda">🎯 Misión</h4>
-                        <p class="text-secondary small">Formar profesionales técnicos bachilleres de excelencia a través de una educación tecnológica integral y pertinente, que responda a las demandas de desarrollo social y productivo del país.</p>
+                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center border-bottom border-3" style="border-bottom-color: var(--dgeti-guinda);">
+                        <img src="{{ url_for('static', filename='Mision.jpeg') }}" class="img-seccion-nosotros mb-3" alt="Misión">
+                        <h4 class="fw-bold text-guinda mb-3">🎯 Misión Institucional</h4>
+                        <p class="text-secondary small lh-lg">Formar profesionales técnicos bachilleres con una sólida preparación científica, tecnológica y humanista. A través de planes de estudio pertinentes y vinculados con el entorno socioeconómico, garantizamos que cada egresado adquiera competencias clave para una inserción laboral competitiva o la continuidad exitosa de sus estudios superiores.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center">
-                        <h4 class="fw-bold text-guinda">👁️ Visión</h4>
-                        <p class="text-secondary small">Ser una institución de educación media superior líder, reconocida nacionalmente por la calidad de sus egresados, su vanguardia tecnológica, sólidos valores cívicos y su compromiso social.</p>
+                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center border-bottom border-3" style="border-bottom-color: var(--dgeti-dorado);">
+                        <img src="{{ url_for('static', filename='Vision.jpeg') }}" class="img-seccion-nosotros mb-3" alt="Visión">
+                        <h4 class="fw-bold text-guinda mb-3">👁️ Visión Estratégica</h4>
+                        <p class="text-secondary small lh-lg">Consolidar al CBTis No. 204 como la institución de educación media superior de máxima referencia en el Estado de Michoacán. Buscamos ser reconocidos por la excelencia académica de nuestra comunidad, la constante actualización de nuestros laboratorios de cómputo y talleres de especialidad, y la formación de ciudadanos con alto sentido de responsabilidad social.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center">
-                        <h4 class="fw-bold text-guinda">🤝 Valores</h4>
-                        <p class="text-secondary small">Fomentamos activamente la responsabilidad, la honestidad, el respeto mutuo, la solidaridad social, el pensamiento crítico y la disciplina tecnológica dentro y fuera de las aulas.</p>
+                    <div class="card p-4 h-100 bg-white border-0 shadow-sm text-center border-bottom border-3" style="border-bottom-color: var(--dgeti-guinda);">
+                        <img src="{{ url_for('static', filename='Valores.jpeg') }}" class="img-seccion-nosotros mb-3" alt="Valores">
+                        <h4 class="fw-bold text-guinda mb-3">🤝 Valores y Códigos Cívicos</h4>
+                        <p class="text-secondary small lh-lg">Guiamos nuestra práctica educativa diaria promoviendo la honestidad cívica, la disciplina tecnológica dentro de los talleres, el respeto mutuo, la solidaridad comunitaria, la equidad de género y el pensamiento crítico constructivo para resolver los desafíos regionales.</p>
                     </div>
                 </div>
             </div>
         </section>
 
         <section id="sec-avisos" class="seccion-web">
-            <h2 class="fw-bold text-guinda mb-2 text-center">📢 Cartelera Virtual Inteligente</h2>
-            <p class="text-muted text-center mb-4">Filtra los anuncios en tiempo real haciendo clic en los botones de categoría.</p>
+            <h2 class="fw-bold text-guinda mb-2 text-center">📢 Cartelera Virtual y Difusión Escolar</h2>
+            <p class="text-muted text-center mb-4 fs-5">Utiliza el sistema de filtrado dinámico para localizar circulares por departamento administrativo.</p>
             
             <div class="d-flex justify-content-center gap-2 mb-4 flex-wrap">
                 <button class="btn btn-outline-guinda active" id="f-todos" onclick="filtrarAvisos('Todos')">Mostrar Todos</button>
                 <button class="btn btn-outline-guinda" id="f-inscripciones" onclick="filtrarAvisos('Inscripciones')">🎓 Inscripciones</button>
-                <button class="btn btn-outline-guinda" id="f-becas" onclick="filtrarAvisos('Becas')">💰 Becas</button>
+                <button class="btn btn-outline-guinda" id="f-becas" onclick="filtrarAvisos('Becas')">💰 Trámite de Becas</button>
                 <button class="btn btn-outline-guinda" id="f-general" onclick="filtrarAvisos('General')">📌 Avisos Generales</button>
             </div>
 
@@ -147,14 +222,14 @@
                 {% for aviso in avisos %}
                 <div class="col card-aviso-item" data-categoria="{{ aviso.categoria }}" style="max-width: 400px;">
                     <div class="card card-premium h-100">
-                        <img src="{{ aviso.imagen }}" class="img-aviso" alt="Comunicado">
+                        <img src="{{ aviso.imagen }}" class="img-aviso" alt="Comunicado Oficial">
                         <div class="card-body p-4">
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                <span class="badge bg-secondary rounded-pill small">{{ aviso.fecha }}</span>
-                                <span class="badge bg-warning text-dark font-monospace small">{{ aviso.categoria }}</span>
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <span class="badge bg-secondary rounded-pill small px-3 py-1.5">{{ aviso.fecha }}</span>
+                                <span class="badge text-dark fw-bold px-3 py-1.5" style="background-color: var(--dgeti-dorado);">{{ aviso.categoria }}</span>
                             </div>
                             <h5 class="card-title fw-bold text-dark mb-2">{{ aviso.titulo }}</h5>
-                            <p class="card-text text-secondary small">{{ aviso.contenido }}</p>
+                            <p class="card-text text-secondary small lh-base">{{ aviso.contenido }}</p>
                         </div>
                     </div>
                 </div>
@@ -163,27 +238,72 @@
         </section>
 
         <section id="sec-oferta" class="seccion-web">
-            <h2 class="fw-bold text-guinda mb-2 text-center">🎓 Oferta Educativa Profesional</h2>
-            <p class="text-muted text-center mb-4">Escribe una palabra clave abajo para buscar especialidades al instante.</p>
+            <h2 class="fw-bold text-guinda mb-2 text-center">🎓 Especialidades y Carreras Técnicas Profesionales</h2>
+            <p class="text-muted text-center mb-4 fs-5">Escribe una palabra o competencia técnica abajo. El buscador filtrará el catálogo en tiempo real.</p>
             
             <div class="row justify-content-center mb-4">
                 <div class="col-md-6">
-                    <input type="text" id="buscador-carreras" class="form-control form-control-lg text-center shadow-sm" placeholder="🔍 Escribe para buscar... Ej: Programación" onkeyup="buscarCarreras()">
+                    <input type="text" id="buscador-carreras" class="form-control form-control-lg text-center shadow-sm fs-6" placeholder="🔍 Buscar especialidad... Ej: Vida Saludable" onkeyup="buscarCarreras()">
                 </div>
             </div>
 
             <div class="row g-4 justify-content-center" id="lista-carreras">
-                {% for carrera in carreras %}
-                <div class="col-md-8 item-carrera-card">
-                    <div class="card card-premium card-carrera p-4">
-                        <h4 class="fw-bold text-guinda mb-2 nombre-carrera-txt">{{ carrera.nombre }}</h4>
-                        <p class="mb-3 text-dark small"><strong>Especialidad:</strong> {{ carrera.descripcion }}</p>
-                        <div class="p-3 bg-light rounded-3">
-                            <p class="text-secondary mb-0 small"><strong>💼 Salida Laboral:</strong> {{ carrera.campo }}</p>
+                
+                <div class="col-md-9 item-carrera-card">
+                    <div class="card card-premium card-carrera" style="border-left-color: var(--dgeti-dorado) !important;">
+                        <img src="{{ url_for('static', filename='Vida Saludable.jpeg') }}" class="img-carrera-foto" alt="Técnico en Vida Saludable">
+                        <div class="p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-2 flex-wrap">
+                                <h4 class="fw-bold text-guinda nombre-carrera-txt mb-1">Técnico en Vida Saludable</h4>
+                                <span class="badge bg-success text-white fw-bold px-3 py-1.5 rounded-pill">Especialidad de Vanguardia</span>
+                            </div>
+                            <p class="mb-3 text-dark small lh-lg"><strong>Perfil Profesional Avanzado:</strong> Formación integral centrada en la promoción de la salud pública, nutrición comunitaria balanceada, acondicionamiento físico sistemático y desarrollo de hábitos de bienestar integral. Los estudiantes adquieren competencias sólidas para diseñar campañas de prevención epidemiológica, primeros auxilios, gestión de comedores saludables institucionales y consultorías de orientación de la salud.</p>
+                            <div class="p-3 bg-light rounded-3">
+                                <p class="text-secondary mb-0 small"><strong>💼 Campo e Inserción Laboral:</strong> Centros de atención comunitaria y de salud pública, laboratorios de orientación nutricional, complejos deportivos, comedores industriales o consultorías autónomas.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
+
+                <div class="col-md-9 item-carrera-card">
+                    <div class="card card-premium card-carrera">
+                        <img src="{{ url_for('static', filename='Programacion.jpeg') }}" class="img-carrera-foto" alt="Técnico en Programación">
+                        <div class="p-4">
+                            <h4 class="fw-bold text-guinda mb-2 nombre-carrera-txt">Técnico en Programación</h4>
+                            <p class="mb-3 text-dark small lh-lg"><strong>Perfil Profesional Avanzado:</strong> Comprensión avanzada de metodologías de desarrollo ágil de software, codificación orientada a objetos en lenguajes estructurados y administración de bases de datos relacionales locales y en la nube.</p>
+                            <div class="p-3 bg-light rounded-3">
+                                <p class="text-secondary mb-0 small"><strong>💼 Campo e Inserción Laboral:</strong> Consultorías de desarrollo informático, administración de servidores gubernamentales y startups tecnológicas independientes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9 item-carrera-card">
+                    <div class="card card-premium card-carrera">
+                        <img src="{{ url_for('static', filename='Contabilidad.jpeg') }}" class="img-carrera-foto" alt="Técnico en Contabilidad">
+                        <div class="p-4">
+                            <h4 class="fw-bold text-guinda mb-2 nombre-carrera-txt">Técnico en Contabilidad</h4>
+                            <p class="mb-3 text-dark small lh-lg"><strong>Perfil Profesional Avanzado:</strong> Gestión de libros contables institucionales, cálculo y presentación de obligaciones tributarias fiscales y desarrollo de auditorías internas financieras.</p>
+                            <div class="p-3 bg-light rounded-3">
+                                <p class="text-secondary mb-0 small"><strong>💼 Campo e Inserción Laboral:</strong> Despachos financieros contables, instituciones bancarias comerciales y áreas de tesorería del sector público.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-9 item-carrera-card">
+                    <div class="card card-premium card-carrera">
+                        <img src="{{ url_for('static', filename='Administracion.jpeg') }}" class="img-carrera-foto" alt="Técnico en Administración">
+                        <div class="p-4">
+                            <h4 class="fw-bold text-guinda mb-2 nombre-carrera-txt">Técnico en Administración</h4>
+                            <p class="mb-3 text-dark small lh-lg"><strong>Perfil Profesional Avanzado:</strong> Estructuración de cadenas logísticas, administración estratégica de talento y capital humano, y desarrollo de planes de marketing y posicionamiento corporativo.</p>
+                            <div class="p-3 bg-light rounded-3">
+                                <p class="text-secondary mb-0 small"><strong>💼 Campo e Inserción Laboral:</strong> Departamentos de recursos humanos comerciales, gerencias operativas de retail y agencias logísticas aduanales.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -192,25 +312,25 @@
                 <div class="col-md-6">
                     <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid var(--dgeti-dorado);">
                         <h3 class="fw-bold text-guinda text-center mb-2">📊 Simulador de Calificaciones</h3>
-                        <p class="text-muted text-center small mb-4">Ingresa tus calificaciones de los tres parciales para calcular tu promedio final automáticamente.</p>
+                        <p class="text-muted text-center small mb-4">Módulo para el cálculo de promedios parciales automatizados.</p>
                         
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">Calificación Parcial 1</label>
-                            <input type="number" id="p1" class="form-control text-center form-control-lg" min="0" max="10" step="0.1" placeholder="0.0">
+                            <label class="form-label fw-bold small text-secondary">Calificación Parcial 1</label>
+                            <input type="number" id="p1" class="form-control text-center" min="0" max="10" step="0.1" placeholder="0.0">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">Calificación Parcial 2</label>
-                            <input type="number" id="p2" class="form-control text-center form-control-lg" min="0" max="10" step="0.1" placeholder="0.0">
+                            <label class="form-label fw-bold small text-secondary">Calificación Parcial 2</label>
+                            <input type="number" id="p2" class="form-control text-center" min="0" max="10" step="0.1" placeholder="0.0">
                         </div>
                         <div class="mb-3">
-                            <label class="form-label fw-bold small">Calificación Parcial 3</label>
-                            <input type="number" id="p3" class="form-control text-center form-control-lg" min="0" max="10" step="0.1" placeholder="0.0">
+                            <label class="form-label fw-bold small text-secondary">Calificación Parcial 3</label>
+                            <input type="number" id="p3" class="form-control text-center" min="0" max="10" step="0.1" placeholder="0.0">
                         </div>
-                        <button class="btn btn-guinda btn-lg w-100 fw-bold mb-3 shadow-sm" onclick="calcularPromedio()">📊 Calcular Estado Académico</button>
+                        <button class="btn btn-guinda-dgeti w-100 fw-bold mb-3" onclick="calcularPromedio()">Procesar Estado Académico</button>
                         
-                        <div id="resultado-panel" class="p-3 rounded-3 text-center d-none">
-                            <h4 class="fw-bold mb-1" id="resultado-txt">Promedio: 0.0</h4>
-                            <p class="mb-0 fw-bold small" id="resultado-status"></p>
+                        <div id="resultado-panel" class="p-3 rounded-3 text-center d-none fw-bold">
+                            <h4 class="fw-bold mb-1" id="resultado-txt">Promedio Final: 0.0</h4>
+                            <p class="mb-0 small" id="resultado-status"></p>
                         </div>
                     </div>
                 </div>
@@ -220,22 +340,22 @@
         <section id="sec-contacto" class="seccion-web">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <div class="card p-4 shadow-sm border-0 bg-white">
-                        <h3 class="fw-bold text-guinda text-center mb-3">📩 Ventanilla Virtual de Contacto</h3>
+                    <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid var(--dgeti-guinda);">
+                        <h3 class="fw-bold text-guinda text-center mb-3">📩 Ventanilla Virtual</h3>
                         <form action="/contacto" method="POST">
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Nombre Completo</label>
-                                <input type="text" name="nombre" class="form-control" required placeholder="Ej: Sofía Martínez">
+                                <input type="text" name="nombre" class="form-control" required placeholder="Ej: Lic. Sofía Martínez">
                             </div>
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Correo Electrónico</label>
-                                <input type="email" name="correo" class="form-control" required placeholder="sofia@gmail.com">
+                                <input type="email" name="correo" class="form-control" required placeholder="correo@gmail.com">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">Mensaje / Consulta</label>
-                                <textarea name="mensaje" class="form-control" rows="4" required placeholder="Escribe tu duda formal..."></textarea>
+                                <label class="form-label fw-bold small">Consulta o Mensaje</label>
+                                <textarea name="mensaje" class="form-control" rows="4" required placeholder="Escriba su mensaje aquí..."></textarea>
                             </div>
-                            <button type="submit" class="btn btn-guinda btn-lg w-100 fw-bold">Enviar Correspondencia</button>
+                            <button type="submit" class="btn btn-guinda-dgeti w-100 fw-bold">Enviar Mensaje</button>
                         </form>
                     </div>
                 </div>
@@ -246,18 +366,18 @@
             <div class="row justify-content-center">
                 <div class="col-md-6">
                     <div class="card p-4 shadow-sm border-0 bg-white" style="border-top: 5px solid #27ae60;">
-                        <h3 class="fw-bold text-success text-center mb-3">⚙️ Publicar Anuncio con Categoría</h3>
+                        <h3 class="fw-bold text-success text-center mb-3">⚙️ Panel Admin</h3>
                         <form action="/subir-aviso" method="POST">
                             <div class="mb-3">
                                 <label class="form-label fw-bold small">Título del Aviso</label>
                                 <input type="text" name="titulo" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">Fecha para mostrar</label>
-                                <input type="text" name="fecha" class="form-control" required placeholder="Ej: 15 de Junio, 2026">
+                                <label class="form-label fw-bold small">Fecha</label>
+                                <input type="text" name="fecha" class="form-control" required>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">Categoría del Anuncio</label>
+                                <label class="form-label fw-bold small">Categoría</label>
                                 <select name="categoria" class="form-select">
                                     <option value="General">📌 General</option>
                                     <option value="Inscripciones">🎓 Inscripciones</option>
@@ -265,14 +385,14 @@
                                 </select>
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">URL de la Imagen (ImgBB)</label>
+                                <label class="form-label fw-bold small">URL de Imagen</label>
                                 <input type="url" name="imagen" class="form-control">
                             </div>
                             <div class="mb-3">
-                                <label class="form-label fw-bold small">Contenido del Comunicado</label>
-                                <textarea name="contenido" class="form-control" rows="3" required></textarea>
+                                <label class="form-label fw-bold small">Contenido</label>
+                                <textarea name="contenido" class="form-control" rows="4" required></textarea>
                             </div>
-                            <button type="submit" class="btn btn-success btn-lg w-100 fw-bold">✨ Publicar en Cartelera Inteligente</button>
+                            <button type="submit" class="btn btn-success w-100 fw-bold">Publicar Aviso</button>
                         </form>
                     </div>
                 </div>
@@ -284,22 +404,20 @@
     <footer class="text-white text-center py-4 mt-auto">
         <div class="container">
             <p class="fw-bold mb-1" style="color: var(--dgeti-dorado);">CBTis No. 204 — Dirección General de Educación Tecnológica Industrial</p>
-            <p class="mb-0 text-white-50 small">Km 39, Carretera Maravatío - Tlalpujahua, Michoacán, México.</p>
+            <p class="mb-0 text-white-50 small">Michoacán, México.</p>
         </div>
     </footer>
 
     <script>
-        // 1. Motor de navegación por pestañas
-        function navegar(idSeccion) {
+        function navegacionInterna(idSeccion) {
             document.querySelectorAll('.seccion-web').forEach(sec => sec.classList.remove('activa'));
             document.querySelectorAll('.nav-link').forEach(link => link.classList.remove('active'));
+            
             document.getElementById('sec-' + idSeccion).classList.add('activa');
             document.getElementById('btn-' + idSeccion).classList.add('active');
         }
 
-        // 2. Filtro interactivo de avisos en tiempo real
         function filtrarAvisos(categoria) {
-            document.querySelectorAll('.nav-item .btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.card-aviso-item').forEach(item => {
                 if (categoria === 'Todos' || item.getAttribute('data-categoria') === categoria) {
                     item.style.display = 'block';
@@ -309,7 +427,6 @@
             });
         }
 
-        // 3. Buscador interactivo de carreras en tiempo real
         function buscarCarreras() {
             let texto = document.getElementById('buscador-carreras').value.toLowerCase();
             document.querySelectorAll('.item-carrera-card').forEach(card => {
@@ -322,7 +439,6 @@
             });
         }
 
-        // 4. Calculadora del Simulador Escolar
         function calcularPromedio() {
             let p1 = parseFloat(document.getElementById('p1').value) || 0;
             let p2 = parseFloat(document.getElementById('p2').value) || 0;
@@ -338,10 +454,10 @@
             
             if (promedio >= 6.0) {
                 panel.classList.add('bg-success', 'text-white');
-                status.innerText = "✓ ALUMNO ACREDITADO (Situación Regular)";
+                status.innerText = "✓ ASIGNATURA ACREDITADA";
             } else {
                 panel.classList.add('bg-danger', 'text-white');
-                status.innerText = "⚠ ASIGNATURA NO ACREDITADA (Requiere Regularización)";
+                status.innerText = "⚠ ASIGNATURA NO ACREDITADA";
             }
         }
     </script>
